@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -8,36 +9,91 @@ import Row from 'react-bootstrap/Row';
 const Signup = () => {
     const [validated, setValidated] = useState(false);
 
+    let submitObj = {};
+
     const firstName = useRef()
     const lastName = useRef()
     const email = useRef()
-    const passwordA = useRef()
-    const passwordB = useRef()
-    const pass = useRef()
+    const password = useRef()
+    const passwordConfirm = useRef()
+    const valid = useRef()
+    const valid2 = useRef()
 
-
-
+    console.log(process.env.REACT_APP_URL_API)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        e.stopPropagation()
-        console.log(pass)
+        // e.stopPropagation()
+        console.log(valid)
+        console.log(valid2)
 
-        console.log(pass.current.attributes[0].value)
 
-        const submitObj = {
-            firstName: firstName.current.value,
-            lastName: lastName.current.value,
-            email: email.current.value,
+        console.log(password.current.value)
+        console.log(passwordConfirm.current.value)
+
+        if (password.current.value === passwordConfirm.current.value) {
+            valid.current.classList.value = "invalid-feedback"
+            valid2.current.classList.value = "invalid-feedback"
+            submitObj = {
+                firstname: firstName.current.value,
+                lastname: lastName.current.value,
+                email: email.current.value,
+                password: password.current.value,
+                picture: ""
+            }
+
+            // axios({
+            //     method: "post",
+            //     // url: `${process.env.REACT_APP_URL_API}api/auth/signup`,
+            //     url: `http://localhost:8080/api/auth/signup`,
+            //     withCredentials: true,
+            //     data: submitObj
+            // }).then((res) => {
+            //     if (res.ok) {
+            //         console.log(res)
+            //     }
+            // })
+            //     .catch(err => console.log(err))
+
+            fetch(`${process.env.REACT_APP_URL_API}api/auth/signup`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(submitObj)
+
+            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                };
+
+            }).then(res => console.log(res))
+                .catch(err => console.log(err))
+
+
+        } else {
+            valid.current.classList.value = "my_red"
+            valid2.current.classList.value = "my_red"
+            valid.current.innerText = "Veuillez retaper le mot de passe !";
+            valid2.current.innerText = "Les mots de passe ne correspondent pas !";
+            password.current.value = "";
+            passwordConfirm.current.value = "";
+
         }
+
+
+
+
+
+        // 
         console.log(submitObj)
 
         // Pour changer l'attribut isvalid
-        pass.current.attributes[0].value = ""
+        console.log(valid.current.attributes[0].value)
 
         // setValidated(true);
     }
-
 
 
     return (
@@ -46,7 +102,7 @@ const Signup = () => {
             <Form id="form" noValidate validated={validated} onSubmit={handleSubmit} >
                 <Row className="mb-2">
                     <Form.Group as={Col} md="12" controlId="validationCustom01">
-                        <Form.Label>First name</Form.Label>
+                        <Form.Label>Prénom</Form.Label>
                         <Form.Control
                             ref={firstName}
                             required
@@ -57,7 +113,7 @@ const Signup = () => {
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="12" controlId="validationCustom02">
-                        <Form.Label>Last name</Form.Label>
+                        <Form.Label>Nom</Form.Label>
                         <Form.Control
                             ref={lastName}
                             required
@@ -68,12 +124,12 @@ const Signup = () => {
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-                        <Form.Label>Username</Form.Label>
+                        <Form.Label>Email</Form.Label>
                         <InputGroup hasValidation>
                             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                             <Form.Control
                                 ref={email}
-                                type="text"
+                                type="email"
                                 name='email'
                                 placeholder="Username"
                                 aria-describedby="inputGroupPrepend"
@@ -87,26 +143,26 @@ const Signup = () => {
                 </Row>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="12" controlId="validationCustom03">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Mot de passe</Form.Label>
                         <Form.Control
-                            ref={passwordA}
+                            ref={password}
                             type="password"
                             name='password'
                             placeholder="password"
                             required />
-                        <Form.Control.Feedback type="invalid" ref={pass}>
+                        <Form.Control.Feedback type="invalid" ref={valid}>
                             Please provide a valid password.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="12" controlId="validationCustom04">
-                        <Form.Label>Confirm password</Form.Label>
+                        <Form.Label>Confirmation du mot de passe</Form.Label>
                         <Form.Control
-                            ref={passwordB}
+                            ref={passwordConfirm}
                             type="password"
-                            name='passwordB'
+                            name='password-confirm'
                             placeholder="password confirm"
                             required />
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid" ref={valid2}>
                             Please provide a valid password.
                         </Form.Control.Feedback>
                     </Form.Group>

@@ -51,3 +51,11 @@ code {
 .blue {
   background-color: blue;
 }
+
+.my_red {
+  color: red;
+}
+
+.disp_none {
+  display: none;
+}
