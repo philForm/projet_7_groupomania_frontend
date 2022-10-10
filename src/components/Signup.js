@@ -6,10 +6,11 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
-const Signup = () => {
+const Signup = (sign) => {
     const [validated, setValidated] = useState(false);
 
-    let submitObj = {};
+    console.log(sign)
+
 
     const firstName = useRef()
     const lastName = useRef()
@@ -34,42 +35,24 @@ const Signup = () => {
         if (password.current.value === passwordConfirm.current.value) {
             valid.current.classList.value = "invalid-feedback"
             valid2.current.classList.value = "invalid-feedback"
-            submitObj = {
-                firstname: firstName.current.value,
-                lastname: lastName.current.value,
-                email: email.current.value,
-                password: password.current.value,
-                picture: ""
-            }
 
-            // axios({
-            //     method: "post",
-            //     // url: `${process.env.REACT_APP_URL_API}api/auth/signup`,
-            //     url: `http://localhost:8080/api/auth/signup`,
-            //     withCredentials: true,
-            //     data: submitObj
-            // }).then((res) => {
-            //     if (res.ok) {
-            //         console.log(res)
-            //     }
-            // })
-            //     .catch(err => console.log(err))
-
-            fetch(`${process.env.REACT_APP_URL_API}api/auth/signup`, {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(submitObj)
-
-            }).then((res) => {
-                if (res.ok) {
-                    return res.json();
-                };
-
-            }).then(res => console.log(res))
+            axios.post(`${process.env.REACT_APP_URL_API}api/auth/signup`,
+                {
+                    firstname: firstName.current.value,
+                    lastname: lastName.current.value,
+                    email: email.current.value,
+                    password: password.current.value,
+                    picture: ""
+                }
+            ).then((res) => {
+                // if (res.ok) {
+                console.log(res)
+                sign.sign()
+                // }
+            })
                 .catch(err => console.log(err))
+
+
 
 
         } else {
@@ -81,13 +64,7 @@ const Signup = () => {
             passwordConfirm.current.value = "";
 
         }
-
-
-
-
-
         // 
-        console.log(submitObj)
 
         // Pour changer l'attribut isvalid
         console.log(valid.current.attributes[0].value)

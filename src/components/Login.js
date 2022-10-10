@@ -12,14 +12,14 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        // const form = e.currentTarget;
+        // if (form.checkValidity() === false) {
+        // e.preventDefault();
+        // e.stopPropagation();
+    }
 
-        setValidated(true);
-    };
+    // setValidated(true);
+    // };
 
     return (
         <div className='form'>

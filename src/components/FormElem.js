@@ -9,10 +9,15 @@ const FormElem = () => {
     const [displaySignup, setDisplaySignup] = useState(true)
     const [displayLogin, setDisplayLogin] = useState(false)
 
+
     const signup = useRef();
     const login = useRef();
 
-    console.log(signup)
+    const formDisplayAfterValid = () => {
+        login.current.classList = "disp_none";
+        setDisplaySignup(false);
+        setDisplayLogin(true)
+    }
 
     const displayForm = (e) => {
         if (e.target.id === "signup") {
@@ -29,14 +34,19 @@ const FormElem = () => {
     }
 
     return (
-        <div className="form_1">
+        <div className="form_1" >
+
+
             <Button className="disp_none" onClick={displayForm} id="signup" ref={signup}>
                 Inscription
             </Button>
             <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
                 Connexion
             </Button>
-            {displaySignup && <Signup />}
+
+
+
+            {displaySignup && <Signup sign={formDisplayAfterValid} />}
             {displayLogin && <Login />}
         </div>
     )
