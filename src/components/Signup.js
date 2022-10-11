@@ -153,7 +153,7 @@ const Signup = (sign) => {
                         feedbackType="invalid"
                     />
                 </Form.Group> */}
-                <Button type="submit">Submit form</Button>
+                <Button type="submit">Inscription</Button>
             </Form>
         </div>
     );

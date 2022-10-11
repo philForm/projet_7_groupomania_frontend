@@ -1,27 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
-import Home from './components/Home';
-import Navbar from './components/Navbar';
-import Error from './Error';
-import FormElem from './components/FormElem';
-
-import './App.css'
 import './index.css';
+import App from './components/Home';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={< Home />} />
-        <Route path="/form" element={<FormElem />} />
-        <Route path="/*" element={<Error />} />
-      </Routes>
-    </Router>
+    <App />
   </React.StrictMode>
 );
 

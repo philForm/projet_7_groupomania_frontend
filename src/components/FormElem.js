@@ -4,6 +4,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 
 
+
 const FormElem = () => {
 
     const [displaySignup, setDisplaySignup] = useState(true)
@@ -34,14 +35,14 @@ const FormElem = () => {
     }
 
     return (
-        <div className="form_1" >
+        <div className="App form_1" >
 
 
             <Button className="disp_none" onClick={displayForm} id="signup" ref={signup}>
-                Inscription
+                Aller au formulaire d'inscription
             </Button>
             <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
-                Connexion
+                Aller au formulaire de connexion
             </Button>
 
 
