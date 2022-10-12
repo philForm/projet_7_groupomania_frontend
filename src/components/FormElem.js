@@ -22,13 +22,13 @@ const FormElem = () => {
 
     const displayForm = (e) => {
         if (e.target.id === "signup") {
-            login.current.className = "primary wid btn btn-primary";
+            login.current.className = "wid btn btn-primary";
             signup.current.className = "disp_none";
             setDisplaySignup(true);
             setDisplayLogin(false);
         } else {
             login.current.className = "disp_none";
-            signup.current.className = "primary wid btn btn-primary";
+            signup.current.className = "wid btn btn-primary";
             setDisplaySignup(false);
             setDisplayLogin(true);
         }
@@ -44,8 +44,6 @@ const FormElem = () => {
             <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
                 Aller au formulaire de connexion
             </Button>
-
-
 
             {displaySignup && <Signup sign={formDisplayAfterValid} />}
             {displayLogin && <Login />}

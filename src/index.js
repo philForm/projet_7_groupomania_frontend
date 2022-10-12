@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Error from './Error';
 import FormElem from './components/FormElem';
 
-import './App.css'
+import './style/home.css'
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,8 +17,8 @@ root.render(
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={< Home />} />
         <Route path="/form" element={<FormElem />} />
+        <Route path="/" element={< Home />} />
         <Route path="/*" element={<Error />} />
       </Routes>
     </Router>

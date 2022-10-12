@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className="margin nav justify-content-between">
       <div >
-        <img src={logo} alt="logo" className="logo" />
+        <img src={logo} alt="logo" className="logo App-logo" />
       </div>
       <ul className="nav justify-content-end">
         <li className="nav-item">

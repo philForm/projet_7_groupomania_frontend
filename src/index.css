@@ -21,14 +21,11 @@ code {
 
 .logo {
   width: 40px;
+  height: auto;
 }
 
 .form {
-  width: 100%;
-  margin: auto;
-  background-color: #4a9c9c;
-  padding: 10px 20px;
-  border-radius: 18px;
+  width: 80%;
 }
 
 .form_1 {
@@ -36,9 +33,9 @@ code {
   flex-direction: column;
   align-items: center;
   background-color: coral;
-  width: 60%;
+  width: 80%;
   margin: auto;
-  padding: 10px;
+  padding: 10px 0;
   border-radius: 20px;
   margin-bottom: 50px;
 }
@@ -58,4 +55,27 @@ code {
 
 .disp_none {
   display: none;
+}
+.disp_flex {
+  display: flex;
+}
+.border_arob {
+  border-radius: 0.375rem 0 0 0.375rem;
+  height: 22px;
+}
+.border_mail {
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+Form.Group {
+  height: 10%;
+}
+
+.form-control {
+  height: 22px;
+}
+
+.btn-primary {
+  background-color: cornflowerblue;
+  border: none;
 }
