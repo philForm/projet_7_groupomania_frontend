@@ -56,6 +56,10 @@ code {
 .disp_none {
   display: none;
 }
+.disp_bloc {
+  display: block;
+}
+
 .disp_flex {
   display: flex;
 }

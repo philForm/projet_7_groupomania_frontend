@@ -5,10 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import { requiredForm } from '../functions/users_functions.js';
 
 const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
-const Signup = (sign) => {
+const Signup = (props) => {
     const [validated, setValidated] = useState(false);
     const [validInput, setValidInput] = useState({
         bool: true,
@@ -25,8 +26,7 @@ const Signup = (sign) => {
         }
     });
 
-    console.log(sign)
-
+    console.log(props)
 
     const firstName = useRef();
     const firstNameControl = useRef();
@@ -58,39 +58,23 @@ const Signup = (sign) => {
         console.log(firstName.current.required)
         console.log(firstName.current.value.length)
 
+        validInput.bool = true;
 
-        if (firstName.current.value.length === 0) {
-            firstNameControl.current.classList.value = "my_red";
-            firstNameControl.current.innerText = validInput.text;
-            validInput.bool = false;
-        }
-        if (lastName.current.value.length === 0) {
-            lastNameControl.current.classList.value = "my_red";
-            lastNameControl.current.innerText = validInput.text;
-            validInput.bool = false;
-        }
-        if (email.current.value.length === 0) {
-            emailControl.current.classList.value = "my_red";
-            emailControl.current.innerText = validInput.text;
-            validInput.bool = false;
-        }
-        if (password.current.value.length === 0) {
-            valid.current.classList.value = "my_red";
-            valid.current.innerText = validInput.text;
-            validInput.bool = false;
-        }
-        if (passwordConfirm.current.value.length === 0) {
-            valid2.current.classList.value = "my_red";
-            valid2.current.innerText = validInput.text;
-            validInput.bool = false;
-        }
+        requiredForm(firstName, firstNameControl, validInput, "my_red", "invalid-feedback");
+        requiredForm(lastName, lastNameControl, validInput, "my_red", "invalid-feedback");
+        requiredForm(email, emailControl, validInput, "my_red", "invalid-feedback");
+        requiredForm(password, valid, validInput, "my_red", "invalid-feedback");
+        requiredForm(passwordConfirm, valid2, validInput, "my_red", "invalid-feedback");
 
+        // Si le champ de l'email n'est pas vide
         if (email.current.value.length !== 0) {
+            // Si l'email est valide
+            if (regexEmail.test(email.current.value)) {
 
-            if (regexEmail.test(email.current.value) && email.current.value.length !== 0) {
                 emailControl.current.classList.value = "invalid-feedback";
                 verifEmail.bool = true;
             }
+            // Si l'email n'est pas valide
             else {
                 emailControl.current.classList.value = "my_red";
                 emailControl.current.innerText = verifEmail.text;
@@ -98,21 +82,29 @@ const Signup = (sign) => {
             }
         }
 
+
+        // Si les champs du mot de passe ne sont pas vides
+        if (password.current.value.length !== 0 || passwordConfirm.current.value.length !== 0) {
+            // Si les deux mots de passe correspondent
+            if (password.current.value === passwordConfirm.current.value) {
+                valid.current.classList.value = "invalid-feedback";
+                valid2.current.classList.value = "invalid-feedback";
+                verifPassword.bool = true
+            }
+            else {
+                valid.current.classList.value = "my_red";
+                valid2.current.classList.value = "my_red";
+                valid.current.innerText = verifPassword.text.valid
+                valid2.current.innerText = verifPassword.text.validConfirm
+                password.current.value = "";
+                passwordConfirm.current.value = "";
+                verifPassword.bool = false;
+            }
+        }
+
+        console.log(validInput.bool)
         console.log(verifEmail.bool)
-
-
-        if (password.current.value === passwordConfirm.current.value) {
-            valid.current.classList.value = "invalid-feedback";
-            valid2.current.classList.value = "invalid-feedback";
-            verifPassword.bool = true
-        }
-        else {
-            valid.current.classList.value = "my_red"
-            valid2.current.classList.value = "my_red"
-            password.current.value = "";
-            passwordConfirm.current.value = "";
-            verifPassword.bool = false;
-        }
+        console.log(verifPassword.bool)
 
         if (verifEmail.bool && verifPassword.bool && validInput.bool) {
 
@@ -127,7 +119,7 @@ const Signup = (sign) => {
             ).then((res) => {
                 if (res.status === 201) {
                     console.log(res)
-                    sign.sign()
+                    props.sign()
                 }
                 if (res.data.message) {
                     emailControl.current.classList.value = "my_red"
@@ -204,7 +196,7 @@ const Signup = (sign) => {
                             placeholder="password"
                             required />
                         <Form.Control.Feedback type="invalid" ref={valid} >
-                            {verifPassword.text.valid}
+                            {/* {verifPassword.text.valid} */}
                         </Form.Control.Feedback >
 
                     </Form.Group>
@@ -217,7 +209,7 @@ const Signup = (sign) => {
                             placeholder="password confirm"
                             required />
                         <Form.Control.Feedback type="invalid" ref={valid2} >
-                            {verifPassword.text.validConfirm}
+                            {/* {verifPassword.text.validConfirm} */}
                         </ Form.Control.Feedback>
                     </Form.Group>
 

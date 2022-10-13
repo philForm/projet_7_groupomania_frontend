@@ -10,12 +10,13 @@ const FormElem = () => {
     const [displaySignup, setDisplaySignup] = useState(true)
     const [displayLogin, setDisplayLogin] = useState(false)
 
-
     const signup = useRef();
     const login = useRef();
+    const span = useRef();
 
     const formDisplayAfterValid = () => {
         login.current.classList = "disp_none";
+        span.current.classList = "disp_bloc";
         setDisplaySignup(false);
         setDisplayLogin(true)
     }
@@ -44,9 +45,11 @@ const FormElem = () => {
             <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
                 Aller au formulaire de connexion
             </Button>
-
             {displaySignup && <Signup sign={formDisplayAfterValid} />}
             {displayLogin && <Login />}
+            <span className="disp_none" ref={span}>
+                Vous pouvez vous connecter !
+            </span>
         </div>
     )
 }
