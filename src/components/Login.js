@@ -7,6 +7,17 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
+import { tokenService } from '../services/service';
+
+
+
+// axios.interceptors.request.use((config) => {
+//     config.headers.authorization = `Bearer ${tokenElt}`;
+//     return config;
+// }, (error) => {
+//     return Promise.reject(error);
+// });
+
 const Login = () => {
 
     const [validated, setValidated] = useState(false);
@@ -18,11 +29,11 @@ const Login = () => {
     const validEmail = useRef();
     const validPassword = useRef();
 
+    console.log(axios)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
-
 
         // const dataLogin = {
         //     email: email.current.value,
@@ -35,26 +46,36 @@ const Login = () => {
         // e.preventDefault();
         // e.stopPropagation();
 
-        axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`, {
-            email: email.current.value,
-            password: password.current.value
-        })
+        axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`,
+            {
+                email: email.current.value,
+                password: password.current.value
+            }
+            // , { withCredentials: true }
+        )
+
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data)
+                    console.log(res)
+                    tokenService.saveToken(res.data.token)
                     navigate("/");
-
-                    // } else {
-                    //     validEmail.current.className = "";
-                    //     validPassword.current.className = "";
-                    // }
+                    return res
                 }
             })
             .catch(err => console.log(err))
+
+
+        // axios.interceptors.request.use((config) => {
+        //     config.headers.authorization = `Bearer ${tokenElt}`;
+        //     return config;
+        // }, (error) => {
+        //     return Promise.reject(error);
+        // });
     }
 
     // setValidated(true);
     // };
+
 
     return (
         <div className="form">

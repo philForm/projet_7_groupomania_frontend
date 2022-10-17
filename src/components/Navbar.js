@@ -1,8 +1,31 @@
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { tokenService } from "../services/service";
 import logo from "../assets/logo512.png";
 
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
+  const isLogged = () => {
+    if (tokenService.isLogged) {
+      console.log(tokenService.isLogged)
+      return true
+    } else {
+      console.log(tokenService.isLogged)
+      return false
+
+    }
+  }
+
+  const logout = () => {
+    tokenService.logOut();
+    navigate('/');
+  }
+
+
 
   return (
     <div className="margin nav justify-content-between">
@@ -19,7 +42,9 @@ const Navbar = () => {
         <li className="nav-item">
           <Link className="nav-link" to="/tata">Link</Link>
         </li>
+        {isLogged && <Button onClick={logout}>Déconnexion</Button>}
       </ul>
+
     </div>
   )
 }
