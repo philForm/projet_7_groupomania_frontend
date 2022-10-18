@@ -1,30 +1,40 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../services/service";
+import { Button } from "react-bootstrap";
 import logo from "../assets/logo512.png";
 
 
 const Navbar = () => {
 
+  const deconnect = useRef();
+  const signup = useRef();
+
   const navigate = useNavigate();
 
-  const isLogged = () => {
-    if (tokenService.isLogged) {
-      console.log(tokenService.isLogged)
-      return true
-    } else {
-      console.log(tokenService.isLogged)
-      return false
+  console.log(deconnect);
 
+  const [logged, setLogged] = useState(false)
+
+
+  const isLogged = (logged) => {
+    if (tokenService.isLogged()) {
+      // navigate("/")
+      logged = true;
+    } else {
+      logged = false;
     }
-  }
+    return logged
+  };
+
+
 
   const logout = () => {
-    tokenService.logOut();
-    navigate('/');
-  }
-
+    tokenService.logOut()
+    deconnect.current.classList.value = "disp_none";
+    isLogged(logged)
+  };
 
 
   return (
@@ -37,16 +47,21 @@ const Navbar = () => {
           <Link className="nav-link active" aria-current="page" to="/">Accueil</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/form">Inscription</Link>
+          <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/tata">Link</Link>
-        </li>
-        {isLogged && <Button onClick={logout}>Déconnexion</Button>}
+
+        {isLogged(logged) &&
+          <li className="nav-item">
+            <Button onClick={logout} ref={deconnect}>Déconnexion</Button>
+          </li>
+        }
+        {/* <li className="nav-item">
+
+        </li> */}
       </ul>
 
-    </div>
+    </div >
   )
 }
 
-export default Navbar;
+export default Navbar; 

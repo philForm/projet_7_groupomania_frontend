@@ -7,7 +7,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Error from './Error';
 import FormElem from './components/FormElem';
-
+import "normalize.css";
 import './style/home.css'
 import './index.css';
 
