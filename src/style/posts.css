@@ -1,0 +1,41 @@
+.posts__container {
+    width: 80%;
+    height: auto;
+    border-radius: 5px;
+    background-color: coral;
+    margin-bottom: 20px;
+}
+
+.posts__img img {
+    width: 100%;
+}
+
+.posts__profil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.post__profil > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.posts__avatar {
+    background-color: deeppink;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.posts__avatar img {
+    width: 50px;
+}
+
+.posts__post {
+    text-align: justify;
+    padding: 10px;
+}

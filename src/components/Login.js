@@ -35,35 +35,25 @@ const Login = () => {
 
         e.preventDefault();
 
-        // const dataLogin = {
-        //     email: email.current.value,
-        //     password: password.current.value
-        // }
+        const dataLogin = {
+            email: email.current.value,
+            password: password.current.value
+        }
 
         console.log(validEmail)
-        // const form = e.currentTarget;
-        // if (form.checkValidity() === false) {
-        // e.preventDefault();
-        // e.stopPropagation();
 
-        axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`,
-            {
-                email: email.current.value,
-                password: password.current.value
-            }
-            // , { withCredentials: true }
-        )
+
+        axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`, dataLogin)
 
             .then((res) => {
                 if (res.status === 200) {
                     console.log(res)
-                    tokenService.saveToken(res.data.token)
+                    tokenService.saveToken(JSON.stringify(res.data))
                     navigate("/");
                     return res
                 }
             })
             .catch(err => console.log(err))
-
 
         // axios.interceptors.request.use((config) => {
         //     config.headers.authorization = `Bearer ${tokenElt}`;
@@ -75,7 +65,6 @@ const Login = () => {
 
     // setValidated(true);
     // };
-
 
     return (
         <div className="form">

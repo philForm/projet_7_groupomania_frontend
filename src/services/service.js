@@ -7,7 +7,11 @@ const logOut = () => {
 };
 
 const isLogged = () => {
-    const token = localStorage.getItem("token");
+    const data = JSON.parse(localStorage.getItem("token"));
+    let token
+    if (data) {
+        token = data.token
+    }
     return !!token // !! transforme n'importe quelle vaiable en boolean
 };
 

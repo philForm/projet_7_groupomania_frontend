@@ -1,10 +1,9 @@
-import FormElem from './FormElem';
+import Posts from "./Posts";
 
 function Home() {
   return (
     <div className="App">
-      Page d'accueil
-      {/* <FormElem /> */}
+      <Posts />
     </div>
   );
 }

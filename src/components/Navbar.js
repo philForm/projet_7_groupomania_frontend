@@ -20,7 +20,6 @@ const Navbar = () => {
 
   const isLogged = (logged) => {
     if (tokenService.isLogged()) {
-      // navigate("/")
       logged = true;
     } else {
       logged = false;
@@ -55,9 +54,6 @@ const Navbar = () => {
             <Button onClick={logout} ref={deconnect}>Déconnexion</Button>
           </li>
         }
-        {/* <li className="nav-item">
-
-        </li> */}
       </ul>
 
     </div >
