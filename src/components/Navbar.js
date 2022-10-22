@@ -37,7 +37,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="margin nav justify-content-between">
+    <div className="fixe margin nav justify-content-between">
       <div >
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>

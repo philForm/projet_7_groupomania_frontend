@@ -36,20 +36,20 @@ const FormElem = () => {
     }
 
     return (
-        <div className="App form_1" >
-
-
-            <Button className="disp_none" onClick={displayForm} id="signup" ref={signup}>
-                Aller au formulaire d'inscription
-            </Button>
-            <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
-                Aller au formulaire de connexion
-            </Button>
-            {displaySignup && <Signup sign={formDisplayAfterValid} />}
-            {displayLogin && <Login />}
-            <span className="disp_none" ref={span}>
-                Vous pouvez vous connecter !
-            </span>
+        <div className="App" >
+            <div className="form_1" >
+                <Button className="disp_none" onClick={displayForm} id="signup" ref={signup}>
+                    Aller au formulaire d'inscription
+                </Button>
+                <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
+                    Aller au formulaire de connexion
+                </Button>
+                {displaySignup && <Signup sign={formDisplayAfterValid} />}
+                {displayLogin && <Login />}
+                <span className="disp_none" ref={span}>
+                    Vous pouvez vous connecter !
+                </span>
+            </div>
         </div>
     )
 }

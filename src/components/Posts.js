@@ -2,8 +2,6 @@ import React from 'react';
 import img from "../assets/image-attractive.jpg";
 import profile from "../assets/un-jeune-homme.png"
 
-import "../style/posts.css"
-
 const Posts = () => {
 
     return (
@@ -18,7 +16,9 @@ const Posts = () => {
                     </div>
                 </div>
                 <div>
-                    Posté le 10/10/2022
+                    <div>
+                        Posté le 10/10/2022
+                    </div>
                 </div>
             </div>
 
@@ -27,6 +27,15 @@ const Posts = () => {
             </div>
             <div className='posts__post'>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt ducimus reprehenderit voluptates perspiciatis distinctio, optio explicabo eveniet perferendis beatae, aperiam maiores nihil placeat tempora pariatur! Quasi officia odit reprehenderit dolorem.
+            </div>
+
+            <div className='posts__eval'>
+                <div>
+                    <i className="fa-solid fa-thumbs-up fa-lg"></i>
+                </div>
+                <div>
+                    <i className="fa-solid fa-thumbs-down fa-lg"></i>
+                </div>
             </div>
         </div>
     )

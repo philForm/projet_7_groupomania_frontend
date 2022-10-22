@@ -14,18 +14,18 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
 }
 
-.post__profil > div:first-child {
+.posts__profil div:first-child {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .posts__avatar {
-    background-color: deeppink;
+    background-color: #149eff;
     width: 50px;
     border-radius: 50%;
     overflow: hidden;
@@ -38,4 +38,33 @@
 .posts__post {
     text-align: justify;
     padding: 10px;
+    background-color: beige;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.posts__eval {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 10px;
+}
+
+.posts__eval div:first-child {
+    padding-right: 10px;
+}
+
+.posts__eval div:hover {
+    color: red;
+}
+
+form textarea {
+    width: 90%;
+}
+
+form input {
+    margin-bottom: 10px;
+    background-color: red;
+    border-radius: 5px;
+    color: white;
+    width: 90%;
 }

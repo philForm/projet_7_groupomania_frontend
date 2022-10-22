@@ -10,7 +10,6 @@ import Row from 'react-bootstrap/Row';
 import { tokenService } from '../services/service';
 
 
-
 // axios.interceptors.request.use((config) => {
 //     config.headers.authorization = `Bearer ${tokenElt}`;
 //     return config;

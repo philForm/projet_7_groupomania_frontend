@@ -11,13 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.fixe {
+  position: fixed;
+  width: 100%;
+}
+
 .nav {
   display: flex;
   background-color: cornflowerblue;
 }
-.margin {
+/* .margin {
   margin-bottom: 30px;
-}
+} */
 
 .logo {
   width: 40px;
