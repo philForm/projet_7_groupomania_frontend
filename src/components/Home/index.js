@@ -1,9 +1,7 @@
-import PostCreate from "./PostCreate";
-import Posts from "./Posts";
+import PostCreate from "../PostCreate";
+import Posts from "../Posts";
 
-import "../style/posts.css"
-
-
+import "./posts.css"
 
 function Home() {
   return (

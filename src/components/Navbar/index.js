@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { tokenService } from "../services/service";
-import { Button } from "react-bootstrap";
-import logo from "../assets/logo512.png";
+import { tokenService } from "../../services/service";
+// import logo from "../assets/logo512.png";
+import logo from "../../assets/icon-left-font-monochrome-black.png";
+
+import "./navbar.css"
 
 
 const Navbar = () => {
@@ -37,25 +39,23 @@ const Navbar = () => {
 
 
   return (
-    <div className="fixe margin nav justify-content-between">
+    <div className="fixe nav">
       <div >
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>
-      <ul className="nav justify-content-end">
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">Accueil</Link>
+      <ul className="nav">
+        <li className="">
+          <Link className="" aria-current="page" to="/">Accueil</Link>
         </li>
-        <li className="nav-item">
+        <li className="">
           <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
         </li>
-
         {isLogged(logged) &&
-          <li className="nav-item">
-            <Button onClick={logout} ref={deconnect}>Déconnexion</Button>
+          <li className="">
+            <button onClick={logout} ref={deconnect}>Déconnexion</button>
           </li>
         }
       </ul>
-
     </div >
   )
 }

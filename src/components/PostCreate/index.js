@@ -68,7 +68,7 @@ const PostCreate = () => {
                         // onChange={(e) => setImage(e.target.files[0], e.target.files[0].name)}
                         ref={picture} /><br />
                 </div>
-                <button type='submit'>Envoyer</button>
+                <button className='btn-primary' type='submit'>Envoyer</button>
             </form>
         </div>
     )

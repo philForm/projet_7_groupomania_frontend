@@ -1,10 +1,5 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
 import { requiredForm } from '../functions/users_functions.js';
 
 const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
@@ -145,85 +140,74 @@ const Signup = (props) => {
     return (
         <div className='form'>
             <h2>Enregistrement</h2>
-            <Form id="form" noValidate validated={validated} onSubmit={handleSubmit} ref={formVerif}>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="12" controlId="validationCustom01">
-                        <Form.Label>Prénom</Form.Label>
-                        <Form.Control
-                            ref={firstName}
-                            required
-                            name='firtName'
-                            type="text"
-                            placeholder="First name"
-                        />
-                        <Form.Control.Feedback ref={firstNameControl} />
-                    </Form.Group>
-                    <Form.Group as={Col} md="12" controlId="validationCustom02">
-                        <Form.Label>Nom</Form.Label>
-                        <Form.Control
-                            ref={lastName}
-                            required
-                            name='lastName'
-                            type="text"
-                            placeholder="Last name"
-                        />
-                        <Form.Control.Feedback ref={lastNameControl} />
-                    </Form.Group>
-                    <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-                        <Form.Label>Email</Form.Label>
-                        <div className='disp_flex'>
-                            <InputGroup.Text id="inputGroupPrepend" className='border_arob'>@</InputGroup.Text>
-                            <Form.Control className='border_mail form-control'
-                                ref={email}
-                                type="email"
-                                name='email'
-                                placeholder="Email"
-                                aria-describedby="inputGroupPrepend"
-                                required
-                            />
-                        </div>
-                        <Form.Control.Feedback type="invalid" ref={emailControl}>
-                            {/* {verifEmail.text} */}
-                        </Form.Control.Feedback>
-
-                    </Form.Group>
-                    <Form.Group as={Col} md="12" controlId="validationCustom03">
-                        <Form.Label>Mot de passe</Form.Label>
-                        <Form.Control
-                            ref={password}
-                            type="password"
-                            name='password'
-                            placeholder="password"
-                            required />
-                        <Form.Control.Feedback type="invalid" ref={valid} >
-                            {/* {verifPassword.text.valid} */}
-                        </Form.Control.Feedback >
-
-                    </Form.Group>
-                    <Form.Group as={Col} md="12" controlId="validationCustom04">
-                        <Form.Label>Confirmation du mot de passe</Form.Label>
-                        <Form.Control
-                            ref={passwordConfirm}
-                            type="password"
-                            name='password-confirm'
-                            placeholder="password confirm"
-                            required />
-                        <Form.Control.Feedback type="invalid" ref={valid2} >
-                            {/* {verifPassword.text.validConfirm} */}
-                        </ Form.Control.Feedback>
-                    </Form.Group>
-
-                </Row>
-                {/* <Form.Group className="mb-3">
-                    <Form.Check
+            <form id="form" noValidate validated={validated} onSubmit={handleSubmit} ref={formVerif}>
+                <div className='disp_flex_column'>
+                    <label htmlFor='signup_firstname'>Prénom</label>
+                    <input
+                        ref={firstName}
+                        id='signup_firstname'
+                        name='firtName'
+                        type="text"
+                        placeholder="First name"
                         required
-                        label="Agree to terms and conditions"
-                        feedback="You must agree before submitting."
-                        feedbackType="invalid"
                     />
-                </Form.Group> */}
-                <Button type="submit">Inscription</Button>
-            </Form>
+                    <span ref={firstNameControl} />
+                </div>
+                <div className='disp_flex_column'>
+                    <label htmlFor='signup_lastname'>Nom</label>
+                    <input
+                        ref={lastName}
+                        required
+                        id='signup_lastname'
+                        name='lastName'
+                        type="text"
+                        placeholder="Last name"
+                    />
+                    <span ref={lastNameControl} />
+                </div>
+                <div className='disp_flex_column'>
+                    <label htmlFor='signup_email'>Email</label>
+                    <input className=''
+                        ref={email}
+                        id='signup_email'
+                        type="email"
+                        name='email'
+                        placeholder="Email"
+                        aria-describedby="inputGroupPrepend"
+                        required
+                    />
+                    <span type="invalid" ref={emailControl}>
+                        {/* {verifEmail.text} */}
+                    </span>
+                </div>
+                <div className='disp_flex_column'>
+                    <label htmlFor='signup_pass'>Mot de passe</label>
+                    <input
+                        ref={password}
+                        id='signup_pass'
+                        type="password"
+                        name='password'
+                        placeholder="password"
+                        required />
+                    <span type="invalid" ref={valid} >
+                        {/* {verifPassword.text.valid} */}
+                    </span >
+                </div>
+                <div className='disp_flex_column'>
+                    <label htmlFor='signup_pass_confirm'>Confirmation du mot de passe</label>
+                    <input
+                        ref={passwordConfirm}
+                        id='signup_pass_confirm'
+                        type="password"
+                        name='password-confirm'
+                        placeholder="password confirm"
+                        required />
+                    <span type="invalid" ref={valid2} >
+                        {/* {verifPassword.text.validConfirm} */}
+                    </ span>
+                </div>
+                <button className='btn-primary' type="submit">Inscription</button>
+            </form>
         </div>
     );
 };

@@ -1,7 +1,8 @@
-import Button from "react-bootstrap/Button";
 import { useRef, useState } from "react";
-import Signup from "./Signup";
-import Login from "./Login";
+import Signup from "../Signup";
+import Login from "../Login";
+
+import './formElem.css'
 
 
 
@@ -23,13 +24,13 @@ const FormElem = () => {
 
     const displayForm = (e) => {
         if (e.target.id === "signup") {
-            login.current.className = "wid btn btn-primary";
+            login.current.className = "wid btn-primary";
             signup.current.className = "disp_none";
             setDisplaySignup(true);
             setDisplayLogin(false);
         } else {
             login.current.className = "disp_none";
-            signup.current.className = "wid btn btn-primary";
+            signup.current.className = "wid btn-primary";
             setDisplaySignup(false);
             setDisplayLogin(true);
         }
@@ -38,12 +39,13 @@ const FormElem = () => {
     return (
         <div className="App" >
             <div className="form_1" >
-                <Button className="disp_none" onClick={displayForm} id="signup" ref={signup}>
+                <button className="btn-primary disp_none" onClick={displayForm} id="signup" ref={signup}>
                     Aller au formulaire d'inscription
-                </Button>
-                <Button className="primary wid" onClick={displayForm} id="login" ref={login}>
+                </button>
+
+                <button className="btn-primary wid" onClick={displayForm} id="login" ref={login}>
                     Aller au formulaire de connexion
-                </Button>
+                </button>
                 {displaySignup && <Signup sign={formDisplayAfterValid} />}
                 {displayLogin && <Login />}
                 <span className="disp_none" ref={span}>
