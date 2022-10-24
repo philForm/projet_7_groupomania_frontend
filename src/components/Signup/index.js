@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { requiredForm } from '../functions/users_functions.js';
+import { requiredForm } from '../../functions/users_functions.js';
 
 const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
 const Signup = (props) => {
-    const [validated, setValidated] = useState(false);
+    // const [validated, setValidated] = useState(false);
     const [validInput, setValidInput] = useState({
         bool: true,
         text: "Champ requis !"
@@ -140,7 +140,7 @@ const Signup = (props) => {
     return (
         <div className='form'>
             <h2>Enregistrement</h2>
-            <form id="form" noValidate validated={validated} onSubmit={handleSubmit} ref={formVerif}>
+            <form id="form" noValidate onSubmit={handleSubmit} ref={formVerif}>
                 <div className='disp_flex_column'>
                     <label htmlFor='signup_firstname'>Prénom</label>
                     <input

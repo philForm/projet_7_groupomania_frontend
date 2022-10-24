@@ -63,7 +63,7 @@ const Login = () => {
     return (
         <div className="form">
             <h2>Connexion</h2>
-            <form noValidate validated={validated} onSubmit={handleSubmit}>
+            <form noValidate onSubmit={handleSubmit}>
                 <div className='disp_flex_column'>
                     <label htmlFor='connect_email'>Email</label>
                     <input className=''

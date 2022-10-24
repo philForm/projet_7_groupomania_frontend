@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import axios from 'axios';
 
 const PostCreate = () => {
@@ -8,16 +7,15 @@ const PostCreate = () => {
     const picture = useRef();
     const form = useRef();
 
-    let data = new FormData();
-
-
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
+        let data = new FormData();
+
+        data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('postPicture', picture.current.files[0]);
-        // data.append('postPicture', "");
         data.append('userId', 94)
 
         // for (let item of data)
@@ -26,18 +24,11 @@ const PostCreate = () => {
         for (let item of data)
             console.log(item);
 
-        // const message = {
-        //     post: post.current.value,
-        //     postPicture: "",
-        //     userId: 94
-        // }
 
         await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data
             ,
             {
-                headers: {
-                    "content-type": "multipart/form-data"
-                }
+                headers: { "Content-Type": "multipart/form-data" }
             }
         )
 
@@ -64,7 +55,7 @@ const PostCreate = () => {
                         type="file"
                         id='picture'
                         name='picture'
-                        accept='.jpg, .jpeg, .png'
+                        accept='image/jpg, image/jpeg, image/png'
                         // onChange={(e) => setImage(e.target.files[0], e.target.files[0].name)}
                         ref={picture} /><br />
                 </div>
