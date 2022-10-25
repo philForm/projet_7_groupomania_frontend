@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
 
+/**
+ * Création de Posts
+ */
 const PostCreate = () => {
 
     const post = useRef();
@@ -16,29 +19,24 @@ const PostCreate = () => {
 
         data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('userId', 94)
-
-        // for (let item of data)
-        //     console.log(`${item[0]} : ${item[1]}`);
+        data.append('userId', 93)
 
         for (let item of data)
             console.log(item);
 
 
-        await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data
-            ,
+        await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data,
             {
                 headers: { "Content-Type": "multipart/form-data" }
             }
         )
-
             .then((res) => {
                 if (res.status === 200) {
                     console.log(res)
                     return res
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
 
     }
 
