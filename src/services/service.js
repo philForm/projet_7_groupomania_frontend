@@ -15,6 +15,15 @@ const isLogged = () => {
     return !!token // !! transforme n'importe quelle vaiable en boolean
 };
 
+const idCompare = () => {
+    if (JSON.parse(localStorage.getItem("token"))) {
+        const { userId } = JSON.parse(localStorage.getItem("token"));
+        console.log(userId);
+
+        return userId;
+    }
+}
+
 export const tokenService = {
-    saveToken, logOut, isLogged
+    saveToken, logOut, isLogged, idCompare
 };

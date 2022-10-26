@@ -8,29 +8,30 @@ import "./posts.css"
 
 function Home() {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_URL_API}api/post`);
+      setData(result.data);
+    }
+    catch (error) {
+      console.error(error);
+    };
+  };
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get(`${process.env.REACT_APP_URL_API}api/post`)
-        setData(result.data)
-      }
-      catch (error) {
-        console.error(error)
-      }
+    fetchData();
 
-    }
-    fetchData()
+  }, []);
 
-  }, [])
   console.log(data)
 
   return (
     <div className="App">
-      <PostCreate />
-      <Posts data={data} />
-      {/* <Posts /> */}
+      <PostCreate fetchData={fetchData} />
+      <Posts data={data} fetchData={fetchData} />
     </div>
   );
 

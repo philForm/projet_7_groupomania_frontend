@@ -4,7 +4,7 @@ import axios from 'axios';
 /**
  * Création de Posts
  */
-const PostCreate = () => {
+const PostCreate = (props) => {
 
     const post = useRef();
     const picture = useRef();
@@ -19,11 +19,10 @@ const PostCreate = () => {
 
         data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('userId', 93)
+        data.append('userId', 109)
 
         for (let item of data)
             console.log(item);
-
 
         await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data,
             {
@@ -37,6 +36,8 @@ const PostCreate = () => {
                 }
             })
             .catch(err => console.error(err))
+
+        props.fetchData();
 
     }
 
