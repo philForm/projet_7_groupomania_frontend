@@ -10,7 +10,6 @@ const PostCreate = (props) => {
     const picture = useRef();
     const form = useRef();
 
-
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -19,7 +18,7 @@ const PostCreate = (props) => {
 
         data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('userId', 109)
+        data.append('userId', 93)
 
         for (let item of data)
             console.log(item);
@@ -35,9 +34,12 @@ const PostCreate = (props) => {
                     return res
                 }
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
 
         props.fetchData();
+
+        // picture.current.files[0] = "";
+        // post.current.value = "";
 
     }
 

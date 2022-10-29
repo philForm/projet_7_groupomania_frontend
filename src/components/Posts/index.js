@@ -37,18 +37,19 @@ const Posts = ({ data, fetchData }) => {
     const submitPut = async (id, e) => {
         e.preventDefault();
 
-        // let data = new FormData();
+        let data = new FormData();
 
-        // data.append('post', post.current.value)
-        const data = {
-            post: post.current.value
-        }
+        data.append('post', post.current.value)
+        data.append('image', picture.current.files[0])
+        // const data = {
+        //     post: post.current.value
+        // }
 
         await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, data
-            // ,
-            // {
-            //     headers: { "Content-Type": "multipart/form-data" }
-            // }
+            ,
+            {
+                headers: { "Content-Type": "multipart/form-data" }
+            }
         )
             .then((res) => {
                 if (res.status === 200) {
@@ -99,7 +100,8 @@ const Posts = ({ data, fetchData }) => {
                                     <form onSubmit={(e) => submitPut(item.id, e)} ref={form}>
                                         <div className='posts__form'>
                                             <label htmlFor="post">Nouveau message</label><br />
-                                            <textarea type="textarea" id='post' name='post' ref={post} /><br />
+                                            <textarea type="textarea" id='post' name='post' ref={post} defaultValue={item.post} >
+                                            </textarea> <br />
                                         </div>
                                         <div className='posts__form'>
                                             <label htmlFor="picture">Nouvelle image</label><br />
