@@ -14,6 +14,7 @@ const Posts = ({ data, fetchData }) => {
     const form = useRef()
     const post = useRef()
     const picture = useRef()
+    const contain = useRef()
 
     const toggle = () => {
         setDisplay(!display)
@@ -38,6 +39,8 @@ const Posts = ({ data, fetchData }) => {
         e.preventDefault();
 
         let data = new FormData();
+
+        console.log(contain.current.id)
 
         data.append('post', post.current.value)
         data.append('image', picture.current.files[0])
@@ -68,7 +71,7 @@ const Posts = ({ data, fetchData }) => {
     return (
         <Fragment>
             {data.map(item => (
-                <div key={item.id} className='posts__container'>
+                <div key={item.id} className='posts__container' id={`${item.id}`} ref={contain}>
                     <div className='posts__profil'>
                         <div>
                             <div className='posts__avatar'>
@@ -86,16 +89,17 @@ const Posts = ({ data, fetchData }) => {
                         </div>
                     </div>
                     {tokenService.idCompare() === item.user_id &&
-                        < div >
+                        <div>
                             <button
-                                onClick={toggle}
+                                id={`btn-${item.id}`}
+                                onClick={() => toggle(item.id)}
                                 className="btn-primary"
                             >Modifier</button>
                             <button
                                 className="btn-primary"
                                 onClick={() => postDelete(item.id)}
                             >Supprimer</button>
-                            {display &&
+                            {(display) &&
                                 <div className='posts__container'>
                                     <form onSubmit={(e) => submitPut(item.id, e)} ref={form}>
                                         <div className='posts__form'>
@@ -117,9 +121,6 @@ const Posts = ({ data, fetchData }) => {
                                 </div>
                             }
                         </div>
-
-
-
 
                     }
 
