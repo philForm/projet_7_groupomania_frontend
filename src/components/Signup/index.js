@@ -148,7 +148,7 @@ const Signup = (props) => {
                         id='signup_firstname'
                         name='firtName'
                         type="text"
-                        placeholder="First name"
+                        placeholder="Prénom"
                         required
                     />
                     <span ref={firstNameControl} />
@@ -161,7 +161,7 @@ const Signup = (props) => {
                         id='signup_lastname'
                         name='lastName'
                         type="text"
-                        placeholder="Last name"
+                        placeholder="Nom"
                     />
                     <span ref={lastNameControl} />
                 </div>
@@ -187,7 +187,7 @@ const Signup = (props) => {
                         id='signup_pass'
                         type="password"
                         name='password'
-                        placeholder="password"
+                        placeholder="Mot de passe"
                         required />
                     <span type="invalid" ref={valid} >
                         {/* {verifPassword.text.valid} */}
@@ -200,7 +200,7 @@ const Signup = (props) => {
                         id='signup_pass_confirm'
                         type="password"
                         name='password-confirm'
-                        placeholder="password confirm"
+                        placeholder="Confirmation du mot de passe"
                         required />
                     <span type="invalid" ref={valid2} >
                         {/* {verifPassword.text.validConfirm} */}

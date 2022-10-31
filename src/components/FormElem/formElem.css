@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: coral;
+    font-size: 1.2rem;
+    background-color: #ffb79c;
     width: 80%;
+    max-width: 400px;
     margin: auto;
     padding: 10px 0;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-bottom: 50px;
 }

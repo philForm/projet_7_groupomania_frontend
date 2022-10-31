@@ -46,8 +46,12 @@ const FormElem = () => {
                 <button className="btn-primary wid" onClick={displayForm} id="login" ref={login}>
                     Aller au formulaire de connexion
                 </button>
-                {displaySignup && <Signup sign={formDisplayAfterValid} />}
-                {displayLogin && <Login />}
+                {displaySignup &&
+                    <Signup sign={formDisplayAfterValid} />
+                }
+                {displayLogin &&
+                    <Login />
+                }
                 <span className="disp_none" ref={span}>
                     Vous pouvez vous connecter !
                 </span>

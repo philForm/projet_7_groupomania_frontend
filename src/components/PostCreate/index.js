@@ -47,8 +47,8 @@ const PostCreate = (props) => {
         <div className='posts__container'>
             <form onSubmit={handleSubmit} ref={form}>
                 <div className='posts__form'>
-                    <label htmlFor="post">Message</label><br />
-                    <textarea type="textarea" id='post' name='post' ref={post} /><br />
+                    <label htmlFor="post-create">Message</label><br />
+                    <textarea type="textarea" id='post-create' name='post' ref={post} /><br />
                 </div>
                 <div className='posts__form'>
                     <label htmlFor="picture">Image</label><br />

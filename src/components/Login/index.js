@@ -78,12 +78,12 @@ const Login = () => {
                     <span type="invalid" ref={validPassword} />
                 </div>
                 <div className='disp_flex_column'>
-                    <label htmlFor='connect_pass'>Password</label>
+                    <label htmlFor='connect_pass'>Mot de passe</label>
                     <input
                         ref={password}
                         id="connect_pass"
                         type="password"
-                        placeholder="password"
+                        placeholder="Mot de passe"
                         required
                     />
                     <span type="invalid" ref={validPassword} />

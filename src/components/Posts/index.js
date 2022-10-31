@@ -20,7 +20,6 @@ const Posts = ({ data, fetchData }) => {
         setDisplay(!display)
     }
 
-
     // Supprimer un post
     const postDelete = async (id) => {
         await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`)
@@ -34,21 +33,22 @@ const Posts = ({ data, fetchData }) => {
 
         fetchData();
     }
-
-    const submitPut = async (id, e) => {
+    // Modifier un post
+    const postUpdate = async (id, e) => {
         e.preventDefault();
 
-        let data = new FormData();
+        let formData = new FormData();
 
-        console.log(contain.current.id)
+        console.log(`contain.current.id : ${contain.current.id}`);
+        console.log(`id : ${id}`);
 
-        data.append('post', post.current.value)
-        data.append('image', picture.current.files[0])
+        formData.append('post', post.current.value);
+        formData.append('image', picture.current.files[0]);
         // const data = {
         //     post: post.current.value
         // }
 
-        await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, data
+        await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, formData
             ,
             {
                 headers: { "Content-Type": "multipart/form-data" }
@@ -65,7 +65,6 @@ const Posts = ({ data, fetchData }) => {
         toggle()
 
         fetchData();
-
     }
 
     return (
@@ -101,10 +100,15 @@ const Posts = ({ data, fetchData }) => {
                             >Supprimer</button>
                             {(display) &&
                                 <div className='posts__container'>
-                                    <form onSubmit={(e) => submitPut(item.id, e)} ref={form}>
+                                    <form onSubmit={(e) => postUpdate(item.id, e)} ref={form}>
                                         <div className='posts__form'>
-                                            <label htmlFor="post">Nouveau message</label><br />
-                                            <textarea type="textarea" id='post' name='post' ref={post} defaultValue={item.post} >
+                                            <label htmlFor="post-update">Nouveau message</label><br />
+                                            <textarea
+                                                type="textarea"
+                                                id='post-update'
+                                                name='post'
+                                                ref={post}
+                                                defaultValue={item.post} >
                                             </textarea> <br />
                                         </div>
                                         <div className='posts__form'>

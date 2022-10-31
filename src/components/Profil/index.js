@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
-import "../FormElem/formElem.css"
-import "./profil.css"
+import "../FormElem/formElem.css";
+import "../Home/posts.css";
+import "./profil.css";
 
 const Profil = () => {
 
-    const email = useRef();
+    const avatar = useRef();
     const validPassword = useRef();
     const password = useRef();
 
@@ -13,14 +14,14 @@ const Profil = () => {
     }
 
     return (
-        <div className='profil__pad-top'>
+        <div className='App'>
             <div className="form_1">
                 <h2>Ajouter une image à votre profil</h2>
                 <form noValidate onSubmit={handleSubmit}>
                     <div className='disp_flex_column'>
                         <label htmlFor='profil_avatar'>Avatar</label>
                         <input className=''
-                            ref={email}
+                            ref={avatar}
                             id='profil_avatar'
                             type="file"
                             name='avatar'
@@ -30,7 +31,9 @@ const Profil = () => {
                         />
                     </div>
 
-                    <button className='btn-primary' type="submit">Connexion</button>
+                    <button
+                        className='btn-primary'
+                        type="submit">Ajouter ou changer l'image</button>
                 </form>
             </div >
         </div>

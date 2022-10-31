@@ -23,7 +23,6 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-
   }, []);
 
   console.log(data)
