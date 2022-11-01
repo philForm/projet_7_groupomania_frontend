@@ -1,10 +1,11 @@
 .posts__container {
-    width: 80%;
+    width: 100%;
     padding: 10px 0;
     height: auto;
     border-radius: 5px;
-    background-color: coral;
+    background-color: var(--quaternary-color);
     margin-bottom: 20px;
+    max-width: 500px;
 }
 
 .posts__img img {
@@ -39,9 +40,12 @@
 .posts__post {
     text-align: justify;
     padding: 10px;
-    background-color: beige;
+    background-color: var(--quinary-color);
     margin: 10px;
     border-radius: 5px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .posts__eval {
@@ -59,7 +63,12 @@
 }
 
 form textarea {
-    width: 90%;
+    min-width: 90%;
+    max-width: 90%;
+    background-color: var(--quinary-color);
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 40px;
 }
 
 form input {
@@ -74,4 +83,10 @@ form input:focus {
     outline-color: red;
     background-color: #ffefc0;
     /* border: 2px solid red; */
+}
+
+input[type="file"] {
+    background-color: var(--quinary-color);
+    height: 30px;
+    padding: 6px;
 }

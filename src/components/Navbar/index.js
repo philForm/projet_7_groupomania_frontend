@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/service";
 import profile from "../../assets/un-jeune-homme.png";
 
-import logo from "../../assets/icon-left-font-monochrome-black.png";
+import logo from "../../assets/logo_groupomania_navbar.png";
+import shut from "../../assets/button-icon-shut-cliparts.png"
 
 import "./navbar.css"
 
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [logged, setLogged] = useState(false)
 
 
+
   const isLogged = (logged) => {
     if (tokenService.isLogged()) {
       logged = true;
@@ -29,6 +31,7 @@ const Navbar = () => {
     }
     return logged
   };
+
 
 
 
@@ -53,17 +56,20 @@ const Navbar = () => {
             <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
           </li>
         </ul>
-        {isLogged(logged) &&
+        {isLogged(logged) ?
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
               <Link to={"/form/profil"}>
                 <img src={profile} alt="avatar" />
               </Link>
             </div>
-            <div className="">
-              <button onClick={logout} >Déconnexion</button>
+            <div className="nav__deconnect">
+              <button onClick={logout} className="nav__deconnect">
+                <img src={shut} alt="icone de déconnexion" />
+              </button>
             </div>
           </div>
+          : <div className="nav__height" />
         }
       </div>
     </div >

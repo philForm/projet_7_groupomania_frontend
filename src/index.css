@@ -11,6 +11,17 @@
   text-decoration: none;
 }
 
+/* ------------------- */
+/* Liste des variables */
+/* ------------------- */
+:root {
+  --primary-color: #fd2d01;
+  --secondary-color: #ffd7d7;
+  --tertiary-color: #4e5166;
+  --quaternary-color: #ffb59a;
+  --quinary-color: #fffbd4;
+}
+
 html {
   /* Pour que 1rem soit équivalent à 10px sur toute la page */
   font-size: 62.5%;
@@ -18,7 +29,7 @@ html {
 }
 
 body {
-  background-color: rgb(19, 61, 100);
+  background-color: var(--tertiary-color);
   margin: 0;
 }
 

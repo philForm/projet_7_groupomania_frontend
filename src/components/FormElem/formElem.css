@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     font-size: 1.2rem;
-    background-color: #ffb79c;
+    background-color: var(--secondary-color);
     width: 80%;
     max-width: 400px;
     margin: auto;

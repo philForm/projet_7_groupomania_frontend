@@ -1,6 +1,8 @@
 .logo {
-    width: 40px;
+    width: 160px;
     height: auto;
+    position: absolute;
+    top: 5px;
 }
 
 /* @media (prefers-reduced-motion: no-preference) {
@@ -23,6 +25,7 @@
     gap: 2rem;
     background-color: cornflowerblue;
     font-size: 1.5rem;
+    /* min-height: 40px; */
 }
 
 .nav__pad {
@@ -35,8 +38,8 @@
 
 .nav__avatar {
     background-color: #149eff;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -49,12 +52,28 @@
     display: flex;
     align-items: center;
     position: relative;
-    background-color: burlywood;
-    top: -6px;
+    background-color: var(--secondary-color);
+    /* top: -6px; */
     /* right: 5px; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     padding: 5px;
     gap: 5px;
+    right: -10px;
+}
+
+.nav__deconnect {
+    background: transparent;
+    border: none;
+}
+
+.nav__deconnect img {
+    height: 20px;
+    cursor: pointer;
+}
+
+.nav__height {
+    height: 40px;
+    width: auto;
 }
 
 @keyframes App-logo-spin {

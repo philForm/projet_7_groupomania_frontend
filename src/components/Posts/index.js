@@ -20,6 +20,7 @@ const Posts = ({ data, fetchData }) => {
         setDisplay(!display)
     }
 
+
     // Supprimer un post
     const postDelete = async (id) => {
         await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`)
@@ -33,6 +34,7 @@ const Posts = ({ data, fetchData }) => {
 
         fetchData();
     }
+
     // Modifier un post
     const postUpdate = async (id, e) => {
         e.preventDefault();
@@ -91,45 +93,48 @@ const Posts = ({ data, fetchData }) => {
                         <div>
                             <button
                                 id={`btn-${item.id}`}
-                                onClick={() => toggle(item.id)}
+                                // onClick={() => toggle(item.id)}
+                                onClick={() => toggle()}
                                 className="btn-primary"
                             >Modifier</button>
                             <button
                                 className="btn-primary"
                                 onClick={() => postDelete(item.id)}
                             >Supprimer</button>
-                            {(display) &&
-                                <div className='posts__container'>
-                                    <form onSubmit={(e) => postUpdate(item.id, e)} ref={form}>
-                                        <div className='posts__form'>
-                                            <label htmlFor="post-update">Nouveau message</label><br />
-                                            <textarea
-                                                type="textarea"
-                                                id='post-update'
-                                                name='post'
-                                                ref={post}
-                                                defaultValue={item.post} >
-                                            </textarea> <br />
-                                        </div>
-                                        <div className='posts__form'>
-                                            <label htmlFor="picture">Nouvelle image</label><br />
-                                            <input
-                                                type="file"
-                                                id='picture'
-                                                name='picture'
-                                                accept='image/jpg, image/jpeg, image/png'
-                                                ref={picture} /><br />
-                                        </div>
-                                        <button className='btn-primary' type='submit'>Envoyer</button>
-                                    </form>
-                                </div>
-                            }
                         </div>
-
+                    }
+                    {
+                        (display) &&
+                        <div>
+                            <div className='posts__container'>
+                                <form onSubmit={(e) => postUpdate(item.id, e)} ref={form}>
+                                    <div className='posts__form'>
+                                        <label htmlFor="post-update">Nouveau message</label><br />
+                                        <textarea
+                                            type="textarea"
+                                            id='post-update'
+                                            name='post'
+                                            ref={post}
+                                            defaultValue={item.post} >
+                                        </textarea> <br />
+                                    </div>
+                                    <div className='posts__form'>
+                                        <label htmlFor="picture">Nouvelle image</label><br />
+                                        <input
+                                            type="file"
+                                            id='picture'
+                                            name='picture'
+                                            accept='image/jpg, image/jpeg, image/png'
+                                            ref={picture} /><br />
+                                    </div>
+                                    <button className='btn-primary' type='submit'>Envoyer</button>
+                                </form>
+                            </div>
+                        </div>
                     }
 
                     <div className='posts__img'>
-                        {(item.post_picture && item.post_picture !== "rien") && <img src={item.post_picture} alt="élephant volant" />}
+                        {(item.post_picture && item.post_picture !== "") && <img src={item.post_picture} alt="élephant volant" />}
                     </div>
                     <div className='posts__post'>
                         {item.post}
