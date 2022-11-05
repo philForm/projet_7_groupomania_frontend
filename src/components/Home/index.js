@@ -20,7 +20,6 @@ function Home() {
     };
   };
 
-
   useEffect(() => {
     fetchData();
   }, []);

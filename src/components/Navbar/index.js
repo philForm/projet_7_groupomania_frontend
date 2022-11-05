@@ -19,9 +19,10 @@ const Navbar = () => {
 
   console.log(deconnect);
 
-  const [logged, setLogged] = useState(false)
+  const [logged, setLogged] = useState(false);
+  const [userId, setUserId] = useState(tokenService.idCompare());
 
-
+  // console.log(tokenService.idCompare())
 
   const isLogged = (logged) => {
     if (tokenService.isLogged()) {
@@ -29,7 +30,7 @@ const Navbar = () => {
     } else {
       logged = false;
     }
-    return logged
+    return logged;
   };
 
 
@@ -39,6 +40,8 @@ const Navbar = () => {
     tokenService.logOut()
     deconnect.current.classList.value = "disp_none";
     isLogged(logged)
+    setLogged(false)
+    setUserId(null)
   };
 
 

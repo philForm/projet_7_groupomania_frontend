@@ -7,7 +7,7 @@ import { tokenService } from '../../services/service'
 
 const Posts = ({ data, fetchData }) => {
 
-    const [display, setDisplay] = useState(false);
+    const [displayId, setDisplayId] = useState(null);
 
     console.log(tokenService.idCompare());
 
@@ -16,8 +16,14 @@ const Posts = ({ data, fetchData }) => {
     const picture = useRef()
     const contain = useRef()
 
-    const toggle = () => {
-        setDisplay(!display)
+    const toggle = (id) => {
+        // debugger;
+        // setDisplay(displayId)
+        if (displayId === id) {
+            setDisplayId(null);
+        } else {
+            setDisplayId(id);
+        }
     }
 
 
@@ -93,8 +99,7 @@ const Posts = ({ data, fetchData }) => {
                         <div>
                             <button
                                 id={`btn-${item.id}`}
-                                // onClick={() => toggle(item.id)}
-                                onClick={() => toggle()}
+                                onClick={() => toggle(item.id)}
                                 className="btn-primary"
                             >Modifier</button>
                             <button
@@ -104,7 +109,7 @@ const Posts = ({ data, fetchData }) => {
                         </div>
                     }
                     {
-                        (display) &&
+                        (displayId === item.id) &&
                         <div>
                             <div className='posts__container'>
                                 <form onSubmit={(e) => postUpdate(item.id, e)} ref={form}>
