@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
 /**
@@ -6,13 +6,37 @@ import axios from 'axios';
  */
 const PostCreate = (props) => {
 
+    const [image, setImage] = useState({
+        file: [],
+        filepreview: null,
+    });
+
     const post = useRef();
     const picture = useRef();
     const form = useRef();
 
+    /**
+     * Previsualisation de l'image :
+     */
+    const handleChangeImage = e => {
+        setImage({
+            ...image,
+            file: e.target.files[0],
+            filepreview: URL.createObjectURL(e.target.files[0]),
+        });
+    };
+
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+
+        // Supprimer la prévisualisation :
+        setImage({
+            ...image,
+            file: picture.current.files[0],
+            filepreview: null,
+        });
 
         let data = new FormData();
 
@@ -36,12 +60,23 @@ const PostCreate = (props) => {
             })
             .catch(err => console.error(err));
 
+
         props.fetchData();
+
+        // setFileDisplay({
+        //     ...fileDisplay,
+        //     file: post.current.value,
+        //     filedisplay: "",
+        // });
+
+
+
 
         // picture.current.files[0] = "";
         // post.current.value = "";
 
-    }
+    };
+
 
     return (
         <div className='posts__container'>
@@ -56,10 +91,18 @@ const PostCreate = (props) => {
                         type="file"
                         id='picture'
                         name='picture'
-                        accept='image/jpg, image/jpeg, image/png'
+                        accept='image/jpg, image/jpeg, image/png image/gif'
                         // onChange={(e) => setImage(e.target.files[0], e.target.files[0].name)}
+                        onChange={(e) => handleChangeImage(e)}
                         ref={picture} /><br />
                 </div>
+                {image.filepreview !== null &&
+                    <div className='posts_preview'>
+                        <img
+                            src={image.filepreview}
+                            alt="UploadImage" />
+                    </div>
+                }
                 <button className='btn-primary' type='submit'>Envoyer</button>
             </form>
         </div>

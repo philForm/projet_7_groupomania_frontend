@@ -3,6 +3,7 @@ import axios from "axios";
 
 import PostCreate from "../PostCreate";
 import Posts from "../Posts";
+import AvatarContextProvider from "../../Context/avatar_context";
 
 import "./posts.css"
 
@@ -28,8 +29,10 @@ function Home() {
 
   return (
     <div className="App">
-      <PostCreate fetchData={fetchData} />
-      <Posts data={data} fetchData={fetchData} />
+      <AvatarContextProvider>
+        <PostCreate fetchData={fetchData} />
+        <Posts data={data} fetchData={fetchData} />
+      </AvatarContextProvider>
     </div>
   );
 

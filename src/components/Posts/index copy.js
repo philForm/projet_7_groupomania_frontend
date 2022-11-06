@@ -119,7 +119,7 @@ const Posts = ({ data, fetchData }) => {
                                                 type="file"
                                                 id='picture'
                                                 name='picture'
-                                                accept='image/jpg, image/jpeg, image/png'
+                                                accept='image/jpg, image/jpeg, image/png image/gif'
                                                 ref={picture} /><br />
                                         </div>
                                         <button className='btn-primary' type='submit'>Envoyer</button>

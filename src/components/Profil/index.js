@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../FormElem/formElem.css";
 import "../Home/posts.css";
@@ -7,14 +8,41 @@ import { tokenService } from '../../services/service';
 
 const Profil = () => {
 
+    const navigate = useNavigate();
+
     const [data, setData] = useState([])
+    const [logo, setLogo] = useState({
+        file: [],
+        filepreview: null,
+    });
 
     const avatar = useRef();
 
     const userId = tokenService.idCompare();
 
+    // ---------------------------------------------
+    /**
+     * Previsualisation de l'image :
+     */
+    const handleChangeImage = e => {
+        setLogo({
+            ...logo,
+            file: e.target.files[0],
+            filepreview: URL.createObjectURL(e.target.files[0]),
+        });
+    }
+
+    // ---------------------------------------------
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        // Supprimer la prévisualisation :
+        setLogo({
+            ...logo,
+            file: avatar.current.files[0],
+            filepreview: null,
+        });
 
         let formData = new FormData();
         formData.append('image', avatar.current.files[0]);
@@ -35,12 +63,18 @@ const Profil = () => {
             })
             .catch(err => console.error(err));
 
+        fetchData();
+
+        // navigate("/");
 
         // console.log('======result');
         // console.log(result.data.user_picture);
 
     };
 
+    /**
+     * Récupère dans la BDD les infos de l'utilisateur :
+     */
     const fetchData = async () => {
         try {
             const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
@@ -50,15 +84,10 @@ const Profil = () => {
         catch (error) {
             console.error(error);
         };
+
     };
 
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     console.log(data);
-
 
 
     return (
@@ -74,16 +103,25 @@ const Profil = () => {
                             type="file"
                             name='avatar'
                             placeholder="avatar"
+                            onChange={(e) => handleChangeImage(e)}
+                            accept='image/jpg, image/jpeg, image/png image/gif'
                             aria-describedby="inputGroupPrepend"
                             required
                         />
-                    </div>
+                        {logo.filepreview !== null &&
+                            <div className='profil_preview'>
+                                <img
+                                    src={logo.filepreview}
+                                    alt="UploadImage" />
+                            </div>
+                        }
 
+                    </div>
                     <button
                         className='btn-primary'
-                        type="submit">Ajouter ou changer l'image</button>
+                        type="submit">Ajouter ou changer votre avatar</button>
                 </form>
-            </div >
+            </div>
         </div>
     )
 }

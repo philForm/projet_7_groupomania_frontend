@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    background-color: var(--secondary-color);
+    background-color: var(--quaternary-color);
     /* top: -6px; */
     /* right: 5px; */
     /* border-radius: 5px; */

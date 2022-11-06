@@ -1,15 +1,19 @@
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import React, { useState, Fragment, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 import img from "../../assets/image-attractive.jpg";
 import profile from "../../assets/un-jeune-homme.png";
 import { dateFormat } from '../../functions/utils';
-import { tokenService } from '../../services/service'
+import { tokenService } from '../../services/service';
+import { AvatarContext } from '../../Context/avatar_context';
 
 const Posts = ({ data, fetchData }) => {
+
+    const { avatar } = useContext(AvatarContext);
 
     const [displayId, setDisplayId] = useState(null);
 
     console.log(tokenService.idCompare());
+    console.log(data);
 
     const form = useRef()
     const post = useRef()
@@ -17,7 +21,6 @@ const Posts = ({ data, fetchData }) => {
     const contain = useRef()
 
     const toggle = (id) => {
-        // debugger;
         // setDisplay(displayId)
         if (displayId === id) {
             setDisplayId(null);
@@ -26,8 +29,10 @@ const Posts = ({ data, fetchData }) => {
         }
     }
 
-
-    // Supprimer un post
+    /**
+     * Supprimer un post
+     * @param {number} id : id du post :
+     */
     const postDelete = async (id) => {
         await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`)
             .then((res) => {
@@ -41,7 +46,10 @@ const Posts = ({ data, fetchData }) => {
         fetchData();
     }
 
-    // Modifier un post
+    /**
+     * Modifier un post
+     * @param {number} id : id du post :
+     */
     const postUpdate = async (id, e) => {
         e.preventDefault();
 
@@ -82,7 +90,7 @@ const Posts = ({ data, fetchData }) => {
                     <div className='posts__profil'>
                         <div>
                             <div className='posts__avatar'>
-                                <img src={profile} alt="avatar" />
+                                <img src={item.user_picture} alt="avatar" />
                             </div>
 
                             <div className='posts__mail'>
@@ -129,7 +137,7 @@ const Posts = ({ data, fetchData }) => {
                                             type="file"
                                             id='picture'
                                             name='picture'
-                                            accept='image/jpg, image/jpeg, image/png'
+                                            accept='image/jpg, image/jpeg, image/png image/gif'
                                             ref={picture} /><br />
                                     </div>
                                     <button className='btn-primary' type='submit'>Envoyer</button>
