@@ -72,8 +72,7 @@
 }
 
 .nav__height {
-    height: 40px;
-    width: auto;
+    min-height: 40px;
 }
 
 @keyframes App-logo-spin {

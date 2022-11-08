@@ -65,7 +65,11 @@ const Profil = () => {
 
         fetchData();
 
-        // navigate("/");
+        // Vide les champs du formulaire :
+        document.forms["profil_form"].reset();
+
+        // Redirection vers la page des posts :
+        navigate('/');
 
         // console.log('======result');
         // console.log(result.data.user_picture);
@@ -94,7 +98,7 @@ const Profil = () => {
         <div className='App'>
             <div className="form_1">
                 <h2>Ajouter une image à votre profil</h2>
-                <form noValidate onSubmit={handleSubmit}>
+                <form noValidate onSubmit={handleSubmit} name="profil_form" >
                     <div className='disp_flex_column'>
                         <label htmlFor='profil_avatar'>Avatar</label>
                         <input className=''

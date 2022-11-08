@@ -1,18 +1,24 @@
-import React, { useState, Fragment, useEffect, useRef, useContext } from 'react';
+import React, { useState, Fragment, useEffect, useRef } from 'react';
 import axios from 'axios';
 import img from "../../assets/image-attractive.jpg";
 import profile from "../../assets/un-jeune-homme.png";
 import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/service';
-import { AvatarContext } from '../../Context/avatar_context';
 
 const Posts = ({ data, fetchData }) => {
 
-    const { avatar } = useContext(AvatarContext);
 
     const [displayId, setDisplayId] = useState(null);
 
-    console.log(tokenService.idCompare());
+
+    // Récupération de l'id du locaStorage :
+    // const userId = tokenService.idCompare();
+
+    // Récupération du token dans le localStorage :
+    const token = tokenService.recupToken();
+    // Récupération du rôle
+    const role = tokenService.recupRole()
+    console.log(token)
     console.log(data);
 
     const form = useRef()
@@ -34,7 +40,13 @@ const Posts = ({ data, fetchData }) => {
      * @param {number} id : id du post :
      */
     const postDelete = async (id) => {
-        await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`)
+        await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            }
+        )
             .then((res) => {
                 if (res.status === 200) {
                     console.log(res)
@@ -58,16 +70,22 @@ const Posts = ({ data, fetchData }) => {
         console.log(`contain.current.id : ${contain.current.id}`);
         console.log(`id : ${id}`);
 
+        // Récupère l'id de l'utilisateur propriétaire du post :
+        const user = await axios.get(`${process.env.REACT_APP_URL_API}api/post/${id}`);
+        console.log('============= userId')
+        console.log(user.data.userId)
+
         formData.append('post', post.current.value);
         formData.append('image', picture.current.files[0]);
-        // const data = {
-        //     post: post.current.value
-        // }
+        formData.append('userId', user.data.userId)
 
-        await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, formData
-            ,
+        // Modification du post :
+        await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, formData,
             {
-                headers: { "Content-Type": "multipart/form-data" }
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
+                }
             }
         )
             .then((res) => {
@@ -103,7 +121,7 @@ const Posts = ({ data, fetchData }) => {
                             </div>
                         </div>
                     </div>
-                    {tokenService.idCompare() === item.user_id &&
+                    {((tokenService.idCompare() === item.user_id) || role === 1) &&
                         <div>
                             <button
                                 id={`btn-${item.id}`}
@@ -168,4 +186,4 @@ const Posts = ({ data, fetchData }) => {
     )
 }
 
-export default Posts
+export default Posts;

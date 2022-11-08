@@ -9,12 +9,15 @@ import shut from "../../assets/button-icon-shut-cliparts.png"
 
 import "./navbar.css"
 
-
+/**
+ * Barre de navigation :
+ */
 const Navbar = () => {
 
   const deconnect = useRef();
   const signup = useRef();
 
+  // !!! LA SUPPRESSION DE CETTE LIGNE QUI NE SERT A RIEN PLANTE L'APPARITION DU BOUTON DE DECONNEXION !!!
   const navigate = useNavigate();
 
   console.log(deconnect);
@@ -24,6 +27,11 @@ const Navbar = () => {
 
   // console.log(tokenService.idCompare())
 
+  /**
+   * Connecte un utilisateur :
+   * @param {boolean} logged 
+   * @returns {boolean}
+   */
   const isLogged = (logged) => {
     if (tokenService.isLogged()) {
       logged = true;
@@ -33,9 +41,9 @@ const Navbar = () => {
     return logged;
   };
 
-
-
-
+  /**
+   * Déconnecte un utilisateur :
+   */
   const logout = () => {
     tokenService.logOut()
     deconnect.current.classList.value = "disp_none";
@@ -44,9 +52,12 @@ const Navbar = () => {
     setUserId(null)
   };
 
+  console.log("================= isLogged(logged)")
+  console.log(isLogged(logged))
+
 
   return (
-    <div className="fixe nav nav__pad">
+    <div className="fixe nav nav__pad nav__height">
       <div>
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>
@@ -59,7 +70,7 @@ const Navbar = () => {
             <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
           </li>
         </ul>
-        {isLogged(logged) ?
+        {isLogged(logged) &&
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
               <Link to={"/form/profil"}>
@@ -72,11 +83,10 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          : <div className="nav__height" />
         }
       </div>
     </div >
   )
-}
+};
 
 export default Navbar; 

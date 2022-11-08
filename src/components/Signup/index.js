@@ -4,6 +4,10 @@ import { requiredForm } from '../../functions/users_functions.js';
 
 const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
+/**
+ * Enregistre un utilisateur :
+ * @param {*} props 
+ */
 const Signup = (props) => {
     // const [validated, setValidated] = useState(false);
     const [validInput, setValidInput] = useState({
@@ -11,7 +15,8 @@ const Signup = (props) => {
         text: "Champ requis !"
     })
     const [verifEmail, setVerifEmail] = useState({
-        bool: false, text: "L'email est invalide"
+        bool: false,
+        text: "L'email est invalide"
     });
     const [verifPassword, setVerifPassword] = useState({
         bool: false,
@@ -77,7 +82,6 @@ const Signup = (props) => {
             }
         }
 
-
         // Si les champs du mot de passe ne sont pas vides
         if (password.current.value.length !== 0 || passwordConfirm.current.value.length !== 0) {
             // Si les deux mots de passe correspondent
@@ -140,7 +144,7 @@ const Signup = (props) => {
     return (
         <div className='form'>
             <h2>Enregistrement</h2>
-            <form id="form" noValidate onSubmit={handleSubmit} ref={formVerif}>
+            <form id="form" noValidate onSubmit={handleSubmit} ref={formVerif} name="signup_form">
                 <div className='disp_flex_column'>
                     <label htmlFor='signup_firstname'>Prénom</label>
                     <input

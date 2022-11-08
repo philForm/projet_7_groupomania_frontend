@@ -5,13 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { tokenService } from '../../services/service';
 
 
-// axios.interceptors.request.use((config) => {
-//     config.headers.authorization = `Bearer ${tokenElt}`;
-//     return config;
-// }, (error) => {
-//     return Promise.reject(error);
-// });
-
 const Login = () => {
 
     const [validated, setValidated] = useState(false);
@@ -41,7 +34,7 @@ const Login = () => {
 
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res)
+                    console.log(res.data)
                     tokenService.saveToken(JSON.stringify(res.data))
                     navigate("/");
                     return res
@@ -57,8 +50,6 @@ const Login = () => {
         // });
     }
 
-    // setValidated(true);
-    // };
 
     return (
         <div className="form">
@@ -90,9 +81,8 @@ const Login = () => {
                 </div>
                 <button className='btn-primary' type="submit">Connexion</button>
             </form>
-        </div >
+        </div>
     )
 }
-
 
 export default Login

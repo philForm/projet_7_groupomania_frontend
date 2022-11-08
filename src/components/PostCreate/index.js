@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { tokenService } from '../../services/service';
 
 /**
  * Création de Posts
@@ -14,6 +15,13 @@ const PostCreate = (props) => {
     const post = useRef();
     const picture = useRef();
     const form = useRef();
+
+    // Récupération de token d'authentification du localStorage :
+    const token = tokenService.recupToken();
+    console.log(token);
+
+    // Récupération de l'id du l'utilisateur du localStorage :
+    const userId = tokenService.idCompare();
 
     /**
      * Previsualisation de l'image :
@@ -42,14 +50,17 @@ const PostCreate = (props) => {
 
         data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('userId', 93)
+        data.append('userId', userId)
 
         for (let item of data)
             console.log(item);
 
         await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data,
             {
-                headers: { "Content-Type": "multipart/form-data" }
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
+                },
             }
         )
             .then((res) => {
@@ -63,24 +74,21 @@ const PostCreate = (props) => {
 
         props.fetchData();
 
-        // setFileDisplay({
-        //     ...fileDisplay,
-        //     file: post.current.value,
-        //     filedisplay: "",
-        // });
 
 
+        // document.getElementById('picture').value = "";
+        // document.getElementById('post-create').value = "";
 
+        // Vide les champs du formulaire :
+        document.forms["post-create_form"].reset();
 
-        // picture.current.files[0] = "";
-        // post.current.value = "";
 
     };
 
 
     return (
         <div className='posts__container'>
-            <form onSubmit={handleSubmit} ref={form}>
+            <form onSubmit={handleSubmit} ref={form} name="post-create_form">
                 <div className='posts__form'>
                     <label htmlFor="post-create">Message</label><br />
                     <textarea type="textarea" id='post-create' name='post' ref={post} /><br />

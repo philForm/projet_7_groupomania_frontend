@@ -3,17 +3,23 @@ import axios from "axios";
 
 import PostCreate from "../PostCreate";
 import Posts from "../Posts";
-import AvatarContextProvider from "../../Context/avatar_context";
 
 import "./posts.css"
 
+/**
+ * Création et listage de tous les posts :
+ */
 function Home() {
 
   const [data, setData] = useState([]);
 
+  /**
+   * Récupère tous les posts de la BDD
+   */
   const fetchData = async () => {
     try {
       const result = await axios.get(`${process.env.REACT_APP_URL_API}api/post`);
+      // Le résultat est assigné à data du useState
       setData(result.data);
     }
     catch (error) {
@@ -29,10 +35,8 @@ function Home() {
 
   return (
     <div className="App">
-      <AvatarContextProvider>
-        <PostCreate fetchData={fetchData} />
-        <Posts data={data} fetchData={fetchData} />
-      </AvatarContextProvider>
+      <PostCreate fetchData={fetchData} />
+      <Posts data={data} fetchData={fetchData} />
     </div>
   );
 
