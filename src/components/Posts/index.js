@@ -16,21 +16,27 @@ const Posts = ({ data, fetchData }) => {
 
     // Récupération du token dans le localStorage :
     const token = tokenService.recupToken();
+
     // Récupération du rôle
     const role = tokenService.recupRole()
-    console.log(token)
-    console.log(data);
+
+    // console.log(token)
+    // console.log(data);
 
     const form = useRef()
     const post = useRef()
     const picture = useRef()
     const contain = useRef()
 
+
+
     const toggle = (id) => {
-        // setDisplay(displayId)
+
         if (displayId === id) {
+            console.log(displayId)
             setDisplayId(null);
         } else {
+            console.log(displayId)
             setDisplayId(id);
         }
     }
@@ -77,6 +83,7 @@ const Posts = ({ data, fetchData }) => {
 
         formData.append('post', post.current.value);
         formData.append('image', picture.current.files[0]);
+        // formData.append('postId', id)
         formData.append('userId', user.data.userId)
 
         // Modification du post :
@@ -99,12 +106,54 @@ const Posts = ({ data, fetchData }) => {
         toggle()
 
         fetchData();
+    };
+
+    const [increm, setIncrem] = useState(0);
+
+    const [disp, setDisp] = useState("toto");
+
+    const idDisp = (id) => {
+        setDisp(id)
+        console.log(disp)
+        return disp
     }
+
+
+    const increment = (increm, id) => {
+        // setDisp(id)
+        // if (disp === id) {
+        setIncrem(increm + 1);
+    }
+
+
+
+    const postEvaluate = async (id, userId, item) => {
+        // setDisp(id);
+
+        if (item === 1) {
+            console.log("évaluation positive", id, userId)
+            return [1, id, userId]
+        }
+        else {
+            console.log("évaluation négative", id, userId)
+            return [0, id, userId];
+        }
+    };
+
+    useEffect(() => {
+        console.log(postEvaluate())
+    }, [])
+
+    useEffect(() => {
+        axios.post(`${process.env.REACT_APP_URL_API}api/post/like`)
+    })
+
+
 
     return (
         <Fragment>
             {data.map(item => (
-                <div key={item.id} className='posts__container' id={`${item.id}`} ref={contain}>
+                <div key={item.id} className='posts__container' id={`${item.id}`} data-id={`${item.id}`} ref={contain}>
                     <div className='posts__profil'>
                         <div>
                             <div className='posts__avatar'>
@@ -124,7 +173,7 @@ const Posts = ({ data, fetchData }) => {
                     {((tokenService.idCompare() === item.user_id) || role === 1) &&
                         <div>
                             <button
-                                id={`btn-${item.id}`}
+                                id={`btn - ${item.id}`}
                                 onClick={() => toggle(item.id)}
                                 className="btn-primary"
                             >Modifier</button>
@@ -165,18 +214,22 @@ const Posts = ({ data, fetchData }) => {
                     }
 
                     <div className='posts__img'>
-                        {(item.post_picture && item.post_picture !== "") && <img src={item.post_picture} alt="élephant volant" />}
+                        {(item.post_picture && item.post_picture !== "") ?
+                            <img src={item.post_picture} alt="élephant volant" /> :
+                            <img src='' alt='' />}
                     </div>
                     <div className='posts__post'>
                         {item.post}
                     </div>
 
                     <div className='posts__eval'>
-                        <div>
-                            <i className="fa-solid fa-thumbs-up fa-lg"></i>
+                        <div className='posts__icon'>
+                            <i onClick={() => increment(increm)} className="fa-solid fa-thumbs-up fa-lg"></i>
+                            <span>{increm}</span>
                         </div>
-                        <div>
-                            <i className="fa-solid fa-thumbs-down fa-lg"></i>
+                        <div className='posts__icon'>
+                            <i onClick={() => postEvaluate(item.id, item.user_id, 0)} className="fa-solid fa-thumbs-down fa-lg"></i>
+                            <span>0</span>
                         </div>
                     </div>
                 </div>
