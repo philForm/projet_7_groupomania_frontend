@@ -12,7 +12,7 @@ const Posts = ({ data, fetchData }) => {
 
 
     // Récupération de l'id du locaStorage :
-    // const userId = tokenService.idCompare();
+    const userIdLocal = tokenService.idCompare();
 
     // Récupération du token dans le localStorage :
     const token = tokenService.recupToken();
@@ -110,7 +110,7 @@ const Posts = ({ data, fetchData }) => {
 
     const [increm, setIncrem] = useState(0);
 
-    const [disp, setDisp] = useState("toto");
+    const [disp, setDisp] = useState(null);
 
     const idDisp = (id) => {
         setDisp(id)
@@ -125,29 +125,33 @@ const Posts = ({ data, fetchData }) => {
         setIncrem(increm + 1);
     }
 
-
-
-    const postEvaluate = async (id, userId, item) => {
-        // setDisp(id);
-
+    const postEvaluate = async (postId, item) => {
+        let like = [];
         if (item === 1) {
-            console.log("évaluation positive", id, userId)
-            return [1, id, userId]
+            console.log("évaluation positive", postId, userIdLocal)
+            like = [1, postId, userIdLocal]
         }
         else {
-            console.log("évaluation négative", id, userId)
-            return [0, id, userId];
+            console.log("évaluation négative", postId, userIdLocal)
+            like = [0, postId, userIdLocal];
+            console.log(like)
         }
+
+        await axios.post(`${process.env.REACT_APP_URL_API}api/post/${postId}/like`, {
+            like: like[0],
+            postId: like[1],
+            userId: like[2]
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
     };
 
-    useEffect(() => {
-        console.log(postEvaluate())
-    }, [])
-
-    useEffect(() => {
-        axios.post(`${process.env.REACT_APP_URL_API}api/post/like`)
-    })
-
+    // useEffect(() => {
+    //     console.log(postEvaluate())
+    // }, [])
 
 
     return (
@@ -224,11 +228,11 @@ const Posts = ({ data, fetchData }) => {
 
                     <div className='posts__eval'>
                         <div className='posts__icon'>
-                            <i onClick={() => increment(increm)} className="fa-solid fa-thumbs-up fa-lg"></i>
+                            <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i>
                             <span>{increm}</span>
                         </div>
                         <div className='posts__icon'>
-                            <i onClick={() => postEvaluate(item.id, item.user_id, 0)} className="fa-solid fa-thumbs-down fa-lg"></i>
+                            <i onClick={() => postEvaluate(item.id, 0)} className="fa-solid fa-thumbs-down fa-lg"></i>
                             <span>0</span>
                         </div>
                     </div>
