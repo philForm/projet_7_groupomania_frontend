@@ -65,6 +65,8 @@ const Profil = () => {
 
         fetchData();
 
+
+
         // Vide les champs du formulaire :
         document.forms["profil_form"].reset();
 
@@ -84,6 +86,7 @@ const Profil = () => {
             const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
 
             setData(result.data);
+            document.getElementById('user_avatar').src = result.data.user_picture;
         }
         catch (error) {
             console.error(error);
@@ -91,7 +94,6 @@ const Profil = () => {
 
     };
 
-    console.log(data);
 
 
     return (

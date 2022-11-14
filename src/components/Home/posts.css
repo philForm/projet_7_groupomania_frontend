@@ -115,3 +115,10 @@ input[type="file"] {
     gap: 5px;
     font-size: 1.9rem;
 }
+
+@media all and (max-width: 500px) {
+    .posts__container {
+        border-radius: 0;
+        margin-bottom: 5px;
+    }
+}

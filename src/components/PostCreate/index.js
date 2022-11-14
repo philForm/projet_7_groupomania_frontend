@@ -24,7 +24,7 @@ const PostCreate = (props) => {
     const userId = tokenService.idCompare();
 
     /**
-     * Previsualisation de l'image :
+     * Prévisualisation de l'image :
      */
     const handleChangeImage = e => {
         setImage({
@@ -73,8 +73,6 @@ const PostCreate = (props) => {
 
 
         props.fetchData();
-
-
 
         // document.getElementById('picture').value = "";
         // document.getElementById('post-create').value = "";

@@ -1,24 +1,51 @@
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import React, { useState, Fragment, useEffect, useRef, setState } from 'react';
 import axios from 'axios';
 import img from "../../assets/image-attractive.jpg";
 import profile from "../../assets/un-jeune-homme.png";
 import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/service';
 
+
+
 const Posts = ({ data, fetchData }) => {
 
 
     const [displayId, setDisplayId] = useState(null);
+    const [posts, setPosts] = useState(data);
+
+    const [userIdLocal, setUserTdLocal] = useState(tokenService.idCompare());
+
+    const [bool, setBool] = useState(false);
+
+
+
+
+    // const userIdCompare = (id) => {
+    //     if (userIdLocal === id)
+    //         setBool(true)
+    //     else
+    //         setBool(false)
+    // }
+
+    // useEffect(() => {
+    //     console.log("== in useEffect ========== userIdLocal")
+    //     console.log(userIdLocal)
+    // }, [userIdLocal]);
+
+    console.log("== out useEffect ========== userIdLocal")
+    console.log(userIdLocal)
 
 
     // Récupération de l'id du locaStorage :
-    const userIdLocal = tokenService.idCompare();
+    // setUserTdLocal(tokenService.idCompare());
 
     // Récupération du token dans le localStorage :
     const token = tokenService.recupToken();
 
     // Récupération du rôle
-    const role = tokenService.recupRole()
+    const role = tokenService.recupRole();
+    console.log("============ role")
+    console.log(role)
 
     // console.log(token)
     // console.log(data);
@@ -137,16 +164,19 @@ const Posts = ({ data, fetchData }) => {
             console.log(like)
         }
 
-        await axios.post(`${process.env.REACT_APP_URL_API}api/post/${postId}/like`, {
-            like: like[0],
-            postId: like[1],
-            userId: like[2]
+        await axios.post(`${process.env.REACT_APP_URL_API}api/post/like`, {
+            like: item,
+            postId: postId
         }, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
-        })
+        }).then(function (res) {
+            console.log(res);
+            document.getElementById("like1_" + res.data.post_id).textContent = res.data.like1;
+            document.getElementById("like0_" + res.data.post_id).textContent = res.data.like0;
+        });
     };
 
     // useEffect(() => {
@@ -174,7 +204,7 @@ const Posts = ({ data, fetchData }) => {
                             </div>
                         </div>
                     </div>
-                    {((tokenService.idCompare() === item.user_id) || role === 1) &&
+                    {((userIdLocal === item.user_id) || role === 1) &&
                         <div>
                             <button
                                 id={`btn - ${item.id}`}
@@ -229,11 +259,12 @@ const Posts = ({ data, fetchData }) => {
                     <div className='posts__eval'>
                         <div className='posts__icon'>
                             <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i>
-                            <span>{increm}</span>
+                            {/* <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i> */}
+                            <span id={"like1_" + item.id}>{item.like1}</span>
                         </div>
                         <div className='posts__icon'>
                             <i onClick={() => postEvaluate(item.id, 0)} className="fa-solid fa-thumbs-down fa-lg"></i>
-                            <span>0</span>
+                            <span id={"like0_" + item.id}>{item.like0}</span>
                         </div>
                     </div>
                 </div>
@@ -241,6 +272,6 @@ const Posts = ({ data, fetchData }) => {
             )}
         </Fragment >
     )
-}
+};
 
 export default Posts;

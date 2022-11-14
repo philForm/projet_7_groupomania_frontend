@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/service";
-import profile from "../../assets/un-jeune-homme.png";
 
 import logo from "../../assets/logo_groupomania_navbar.png";
 import shut from "../../assets/button-icon-shut-cliparts.png"
@@ -17,15 +17,36 @@ const Navbar = () => {
   const deconnect = useRef();
   const signup = useRef();
 
-  // !!! LA SUPPRESSION DE CETTE LIGNE QUI NE SERT A RIEN PLANTE L'APPARITION DU BOUTON DE DECONNEXION !!!
   const navigate = useNavigate();
 
   console.log(deconnect);
 
   const [logged, setLogged] = useState(false);
   const [userId, setUserId] = useState(tokenService.idCompare());
+  const [data, setData] = useState([]);
 
-  // console.log(tokenService.idCompare())
+  console.log(tokenService.idCompare())
+
+  /**
+   * Récupère un utilisateurs de la BDD
+   */
+  const fetchUser = async () => {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
+      // Le résultat est assigné à data du useState
+      setData(result.data);
+      console.log(result.data)
+    }
+    catch (error) {
+      console.error(error);
+    };
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  console.log(data.user_picture);
 
   /**
    * Connecte un utilisateur :
@@ -45,11 +66,12 @@ const Navbar = () => {
    * Déconnecte un utilisateur :
    */
   const logout = () => {
-    tokenService.logOut()
+    tokenService.logOut();
     deconnect.current.classList.value = "disp_none";
-    isLogged(logged)
-    setLogged(false)
-    setUserId(null)
+    isLogged(logged);
+    setLogged(false);
+    setUserId(null);
+    navigate("/form");
   };
 
   console.log("================= isLogged(logged)")
@@ -62,7 +84,7 @@ const Navbar = () => {
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>
       <div className="nav">
-        <ul className="nav">
+        <ul className="nav nav_mob">
           <li className="">
             <Link className="" aria-current="page" to="/">Accueil</Link>
           </li>
@@ -74,7 +96,7 @@ const Navbar = () => {
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
               <Link to={"/form/profil"}>
-                <img src={profile} alt="avatar" />
+                <img id="user_avatar" src={data.user_picture} alt="avatar" />
               </Link>
             </div>
             <div className="nav__deconnect">

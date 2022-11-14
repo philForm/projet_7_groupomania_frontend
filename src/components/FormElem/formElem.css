@@ -11,3 +11,14 @@
     border-radius: 10px;
     margin-bottom: 50px;
 }
+
+@media all and (max-width: 768px) {
+    .form_1 {
+        width: 100%;
+    }
+}
+@media all and (max-width: 400px) {
+    .form_1 {
+        border-radius: 0;
+    }
+}
