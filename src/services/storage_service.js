@@ -27,15 +27,21 @@ const isLogged = () => {
     return !!token // !! : transforme n'importe quelle variable en boolean
 };
 
+/**
+ * Récupère l'id de l'utilisateur du localStorage :
+ * @returns {String} : userId
+ */
 const idCompare = () => {
     if (JSON.parse(localStorage.getItem("token"))) {
         const { userId } = JSON.parse(localStorage.getItem("token"));
-        // console.log(userId);
-
         return userId;
     }
 }
 
+/**
+ * Récupère le token dans le localStorage
+ * @returns {String}
+ */
 const recupToken = () => {
     const data = JSON.parse(localStorage.getItem("token"));
     let token
@@ -45,6 +51,10 @@ const recupToken = () => {
     return token
 }
 
+/**
+ * Récupère le rôle de l'utilisateur du localStorage :
+ * @returns {number}
+ */
 const recupRole = () => {
     const data = JSON.parse(localStorage.getItem("token"));
     let role
@@ -52,7 +62,6 @@ const recupRole = () => {
         role = data.user_role.data[0]
     }
     return role
-
 }
 
 export const tokenService = {

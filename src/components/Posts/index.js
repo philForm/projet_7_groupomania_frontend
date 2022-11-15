@@ -1,9 +1,7 @@
 import React, { useState, Fragment, useEffect, useRef, setState } from 'react';
 import axios from 'axios';
-import img from "../../assets/image-attractive.jpg";
-import profile from "../../assets/un-jeune-homme.png";
 import { dateFormat } from '../../functions/utils';
-import { tokenService } from '../../services/service';
+import { tokenService } from '../../services/storage_service';
 
 
 

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import PostCreate from "../PostCreate";
 import Posts from "../Posts";
 
 import "./posts.css"
+import { tokenService } from "../../services/storage_service";
 
 /**
  * Création et listage de tous les posts :
@@ -12,6 +12,26 @@ import "./posts.css"
 function Home() {
 
   const [data, setData] = useState([]);
+
+  const userId = tokenService.idCompare();
+
+  /**
+   * Récupère dans la BDD les infos de l'utilisateur :
+   */
+  const fetchUser = async () => {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
+      document.getElementById('user_avatar').src = result.data.user_picture;
+    }
+    catch (error) {
+      console.error(error);
+    };
+
+  };
+
+  fetchUser();
+  useEffect(() => {
+  }, []);
 
   /**
    * Récupère tous les posts de la BDD
@@ -26,6 +46,7 @@ function Home() {
       console.error(error);
     };
   };
+
 
   useEffect(() => {
     fetchData();

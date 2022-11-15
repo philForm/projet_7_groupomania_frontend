@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useRef, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { tokenService } from '../../services/service';
+import { tokenService } from '../../services/storage_service';
 
 
 const Login = () => {
@@ -42,12 +42,6 @@ const Login = () => {
             })
             .catch(err => console.log(err))
 
-        // axios.interceptors.request.use((config) => {
-        //     config.headers.authorization = `Bearer ${tokenElt}`;
-        //     return config;
-        // }, (error) => {
-        //     return Promise.reject(error);
-        // });
     }
 
 

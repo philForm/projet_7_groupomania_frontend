@@ -31,7 +31,7 @@
 } */
 
 .nav__avatar {
-    background-color: #149eff;
+    background-color: var(--tertiary-color);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -96,7 +96,5 @@
 @media all and (max-width: 768px) {
     .connect {
         flex-direction: column;
-    }
-    .nav_mob {
     }
 }

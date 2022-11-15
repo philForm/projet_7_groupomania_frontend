@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { tokenService } from "../../services/service";
+import { tokenService } from "../../services/storage_service";
 
 import logo from "../../assets/logo_groupomania_navbar.png";
 import shut from "../../assets/button-icon-shut-cliparts.png"

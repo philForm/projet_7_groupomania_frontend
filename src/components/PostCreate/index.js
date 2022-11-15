@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { tokenService } from '../../services/service';
+import { tokenService } from '../../services/storage_service';
 
 /**
  * Création de Posts

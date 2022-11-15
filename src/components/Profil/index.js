@@ -4,7 +4,7 @@ import axios from 'axios';
 import "../FormElem/formElem.css";
 import "../Home/posts.css";
 import "./profil.css";
-import { tokenService } from '../../services/service';
+import { tokenService } from '../../services/storage_service';
 
 const Profil = () => {
 
