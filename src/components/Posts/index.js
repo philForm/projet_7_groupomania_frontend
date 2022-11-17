@@ -202,7 +202,7 @@ const Posts = ({ data, fetchData }) => {
                             </div>
                         </div>
                     </div>
-                    {((userIdLocal === item.user_id) || role === 1) &&
+                    {((userIdLocal === item.user_id) || role === 0) &&
                         <div>
                             <button
                                 id={`btn - ${item.id}`}
@@ -257,7 +257,6 @@ const Posts = ({ data, fetchData }) => {
                     <div className='posts__eval'>
                         <div className='posts__icon'>
                             <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i>
-                            {/* <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i> */}
                             <span id={"like1_" + item.id}>{item.like1}</span>
                         </div>
                         <div className='posts__icon'>

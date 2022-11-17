@@ -116,6 +116,10 @@ input[type="file"] {
     font-size: 1.9rem;
 }
 
+.invalid-feedback {
+    display: none;
+}
+
 @media all and (max-width: 500px) {
     .posts__container {
         border-radius: 0;

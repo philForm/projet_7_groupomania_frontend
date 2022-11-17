@@ -37,7 +37,7 @@ const Login = () => {
                     console.log(res.data)
                     tokenService.saveToken(JSON.stringify(res.data))
                     navigate("/");
-                    return res
+                    // return res
                 }
             })
             .catch(err => console.log(err))

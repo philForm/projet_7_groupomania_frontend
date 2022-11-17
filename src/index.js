@@ -15,8 +15,9 @@ root.render(
   <Router>
     <Navbar />
     <Routes>
-      <Route path="/form" element={<FormElem />} />
+      <Route index element={<Home />} />
       <Route path="/" element={< Home />} />
+      <Route path="/form" element={<FormElem />} />
       <Route path="/form/profil" element={< Profil />} />
       <Route path="/*" element={<Error />} />
     </Routes>

@@ -40,23 +40,23 @@ const Signup = (props) => {
     const valid2 = useRef();
     const formVerif = useRef();
 
-    console.log(process.env.REACT_APP_URL_API)
+    console.log(process.env.REACT_APP_URL_API);
 
 
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        e.stopPropagation()
-        console.log(valid)
-        console.log(valid2)
-        console.log(emailControl.current.innerText)
-        console.log(password.current.value)
-        console.log(passwordConfirm.current.value)
+        // e.stopPropagation()
+        console.log(valid);
+        console.log(valid2);
+        console.log(emailControl.current.innerText);
+        console.log(password.current.value);
+        console.log(passwordConfirm.current.value);
 
-        console.log(formVerif)
-        console.log(firstName.current.required)
-        console.log(firstName.current.value.length)
+        console.log(formVerif);
+        console.log(firstName.current.required);
+        console.log(firstName.current.value.length);
 
         validInput.bool = true;
 
@@ -82,13 +82,13 @@ const Signup = (props) => {
             }
         }
 
-        // Si les champs du mot de passe ne sont pas vides
+        // Si les champs du mot de passe ne sont pas vides :
         if (password.current.value.length !== 0 || passwordConfirm.current.value.length !== 0) {
-            // Si les deux mots de passe correspondent
+            // Si les deux mots de passe correspondent :
             if (password.current.value === passwordConfirm.current.value) {
                 valid.current.classList.value = "invalid-feedback";
                 valid2.current.classList.value = "invalid-feedback";
-                verifPassword.bool = true
+                verifPassword.bool = true;
             }
             else {
                 valid.current.classList.value = "my_red";
@@ -101,9 +101,9 @@ const Signup = (props) => {
             }
         }
 
-        console.log(validInput.bool)
-        console.log(verifEmail.bool)
-        console.log(verifPassword.bool)
+        console.log(validInput.bool);
+        console.log(verifEmail.bool);
+        console.log(verifPassword.bool);
 
         if (verifEmail.bool && verifPassword.bool && validInput.bool) {
 
@@ -116,18 +116,28 @@ const Signup = (props) => {
                     picture: ""
                 }
             ).then((res) => {
+                // Si tout s'est bien passé, l'utilisateur est créé :
                 if (res.status === 201) {
-                    console.log(res)
-                    props.sign()
+                    console.log(res);
+                    props.sign();
                 }
+                // Si l'email existe déjà dans la BDD :
                 if (res.data.message) {
-                    emailControl.current.classList.value = "my_red"
+                    emailControl.current.classList.value = "my_red";
                     emailControl.current.innerText = res.data.message;
-                    console.log(res.data.message)
+                    console.log(res.data.message);
+                }
+                // Si le mot de passe n'est pas assez sécurisé :
+                if (res.data.message2) {
+                    valid.current.classList.value = "my_red";
+                    valid.current.innerText = res.data.message2.pass;
+                    valid2.current.classList.value = "my_red";
+                    valid2.current.innerText = res.data.message2.pass2;
+
                 }
             })
-                .catch(err => console.log(err))
-        }
+                .catch(err => console.log(err));
+        };
 
 
 
@@ -138,8 +148,7 @@ const Signup = (props) => {
         // Pour changer l'attribut isvalid
         console.log(valid.current.attributes[0].value)
 
-        // setValidated(true);
-    }
+    };
 
     return (
         <div className='form'>
