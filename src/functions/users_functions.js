@@ -13,6 +13,7 @@ const requiredForm = (name, control, valid, classText, classText2) => {
         valid.bool = false;
     } else {
         control.current.classList.value = classText2;
+        control.current.innerText = "";
     }
 }
 

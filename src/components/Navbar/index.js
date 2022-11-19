@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
+// import Popup from "reactjs-popup";
+// import "reactjs-popup/dist/index.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/storage_service";
@@ -42,9 +44,8 @@ const Navbar = () => {
     };
   };
 
-  useEffect(() => {
+  if (userId)
     fetchUser();
-  }, []);
 
   console.log(data.user_picture);
 

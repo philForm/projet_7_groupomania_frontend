@@ -29,9 +29,8 @@ function Home() {
 
   };
 
-  fetchUser();
-  useEffect(() => {
-  }, []);
+  if (userId)
+    fetchUser();
 
   /**
    * Récupère tous les posts de la BDD

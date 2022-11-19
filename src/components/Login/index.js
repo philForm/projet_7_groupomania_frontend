@@ -16,7 +16,7 @@ const Login = () => {
     const validEmail = useRef();
     const validPassword = useRef();
 
-    console.log(axios)
+    // console.log(axios)
 
     const handleSubmit = async (e) => {
 

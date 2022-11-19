@@ -26,7 +26,7 @@ const Signup = (props) => {
         }
     });
 
-    console.log(props)
+    // console.log(props)
 
     const firstName = useRef();
     const firstNameControl = useRef();
@@ -40,7 +40,7 @@ const Signup = (props) => {
     const valid2 = useRef();
     const formVerif = useRef();
 
-    console.log(process.env.REACT_APP_URL_API);
+    // console.log(process.env.REACT_APP_URL_API);
 
 
 
