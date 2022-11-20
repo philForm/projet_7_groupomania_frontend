@@ -15,6 +15,22 @@ const Posts = ({ data, fetchData }) => {
 
     const [bool, setBool] = useState(false);
 
+    const [image, setImage] = useState({
+        file: [],
+        filepreview: null,
+    });
+
+    /**
+    * Prévisualisation de l'image :
+    */
+    const handleChangeImage = e => {
+        setImage({
+            ...image,
+            file: e.target.files[0],
+            filepreview: URL.createObjectURL(e.target.files[0]),
+        });
+    };
+
 
 
 
@@ -96,9 +112,16 @@ const Posts = ({ data, fetchData }) => {
     const postUpdate = async (id, e) => {
         e.preventDefault();
 
+        // Supprimer la prévisualisation :
+        setImage({
+            ...image,
+            file: picture.current.files[0],
+            filepreview: null,
+        });
+
         let formData = new FormData();
 
-        console.log(`contain.current.id : ${contain.current.id}`);
+        console.log(`contain.id : ${contain.id}`);
         console.log(`id : ${id}`);
 
         // Récupère l'id de l'utilisateur propriétaire du post :
@@ -237,8 +260,16 @@ const Posts = ({ data, fetchData }) => {
                                             id='picture'
                                             name='picture'
                                             accept='image/jpg, image/jpeg, image/png image/gif'
+                                            onChange={(e) => handleChangeImage(e)}
                                             ref={picture} /><br />
                                     </div>
+                                    {image.filepreview !== null &&
+                                        <div className='posts_preview'>
+                                            <img
+                                                src={image.filepreview}
+                                                alt="UploadImage" />
+                                        </div>
+                                    }
                                     <button className='btn-primary' type='submit'>Envoyer</button>
                                 </form>
                             </div>

@@ -1,7 +1,5 @@
 import { useRef, useState } from "react";
 import axios from "axios";
-// import Popup from "reactjs-popup";
-// import "reactjs-popup/dist/index.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/storage_service";
@@ -29,23 +27,27 @@ const Navbar = () => {
 
   console.log(tokenService.idCompare())
 
-  /**
-   * Récupère un utilisateurs de la BDD
-   */
-  const fetchUser = async () => {
-    try {
-      const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
-      // Le résultat est assigné à data du useState
-      setData(result.data);
-      console.log(result.data)
-    }
-    catch (error) {
-      console.error(error);
-    };
-  };
 
-  if (userId)
-    fetchUser();
+  // let picture = null
+
+  // /**
+  //  * Récupère un utilisateurs de la BDD
+  //  */
+  // const fetchUser = async () => {
+  //   try {
+  //     const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
+  //     // Le résultat est assigné à data du useState
+  //     // setData(result.data);
+  //     // picture = result.data.user_picture
+  //     console.log(result.data)
+  //   }
+  //   catch (error) {
+  //     console.error(error);
+  //   };
+  // };
+
+  // if (userId)
+  //   // fetchUser();
 
   console.log(data.user_picture);
 
