@@ -32,20 +32,6 @@ const Posts = ({ data, fetchData }) => {
     };
 
 
-
-
-    // const userIdCompare = (id) => {
-    //     if (userIdLocal === id)
-    //         setBool(true)
-    //     else
-    //         setBool(false)
-    // }
-
-    // useEffect(() => {
-    //     console.log("== in useEffect ========== userIdLocal")
-    //     console.log(userIdLocal)
-    // }, [userIdLocal]);
-
     console.log("== out useEffect ========== userIdLocal")
     console.log(userIdLocal)
 
@@ -87,23 +73,32 @@ const Posts = ({ data, fetchData }) => {
      * @param {number} id : id du post :
      */
     const postDelete = async (id) => {
-        await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            }
-        )
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log(res)
-                    return res
-                }
-            })
-            .catch(err => console.error(err));
 
-        fetchData();
-    }
+        let confirmation = false;
+        confirmation = window.confirm(
+            'Confirmer la suppression du message !'
+        );
+
+        if (confirmation) {
+
+            await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                }
+            )
+                .then((res) => {
+                    if (res.status === 200) {
+                        console.log(res)
+                        return res
+                    }
+                })
+                .catch(err => console.error(err));
+
+            fetchData();
+        };
+    };
 
     /**
      * Modifier un post

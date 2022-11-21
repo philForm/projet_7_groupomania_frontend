@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/storage_service";
@@ -102,11 +101,14 @@ const Navbar = () => {
                 <img id="user_avatar" src={data.user_picture} alt="avatar" />
               </Link>
             </div>
+            <div className="popup">Changer l'image de votre avatar</div>
             <div className="nav__deconnect">
               <button onClick={logout} className="nav__deconnect">
                 <img src={shut} alt="icone de déconnexion" />
               </button>
             </div>
+            <div className="popup">Déconnexion</div>
+
           </div>
         }
       </div>
