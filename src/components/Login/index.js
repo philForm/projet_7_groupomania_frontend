@@ -1,13 +1,11 @@
 import axios from 'axios';
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { tokenService } from '../../services/storage_service';
 
 
 const Login = () => {
-
-    const [validated, setValidated] = useState(false);
 
     const navigate = useNavigate();
 
@@ -16,7 +14,6 @@ const Login = () => {
     const validEmail = useRef();
     const validPassword = useRef();
 
-    // console.log(axios)
 
     const handleSubmit = async (e) => {
 
@@ -25,25 +22,19 @@ const Login = () => {
         const dataLogin = {
             email: email.current.value,
             password: password.current.value
-        }
-
-        console.log(validEmail)
-
+        };
 
         axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`, dataLogin)
 
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data)
-                    tokenService.saveToken(JSON.stringify(res.data))
+                    tokenService.saveToken(JSON.stringify(res.data));
                     navigate("/");
-                    // return res
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
 
-    }
-
+    };
 
     return (
         <div className="form">
@@ -60,7 +51,7 @@ const Login = () => {
                         aria-describedby="inputGroupPrepend"
                         required
                     />
-                    <span type="invalid" ref={validPassword} />
+                    <span type="invalid" ref={validEmail} />
                 </div>
                 <div className='disp_flex_column'>
                     <label htmlFor='connect_pass'>Mot de passe</label>
@@ -76,7 +67,7 @@ const Login = () => {
                 <button className='btn-primary' type="submit">Connexion</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

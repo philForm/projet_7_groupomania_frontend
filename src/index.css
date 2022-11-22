@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 
 *,
@@ -20,6 +27,9 @@
   --tertiary-color: #4e5166;
   --quaternary-color: #ffb59a;
   --quinary-color: #fffbd4;
+  --button-color: #ffd300;
+  --button-color-dark: #ffb300;
+  --button-shadow: #c27017;
 }
 
 html {
@@ -35,9 +45,18 @@ body {
 }
 
 .App {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   text-align: center;
   padding-top: 80px;
@@ -72,10 +91,17 @@ body {
 }
 
 .disp_flex_column {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   gap: 4px;
   margin-bottom: 8px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 .border_arob {
@@ -96,7 +122,7 @@ Form.Group {
 
 .btn-primary {
   position: relative;
-  background-color: #ffd300;
+  background-color: var(--button-color);
   font-size: 1.3rem;
   font-weight: bold;
   padding: 0.5rem;
@@ -105,6 +131,8 @@ Form.Group {
   border: none;
   cursor: pointer;
   z-index: 0;
+  -webkit-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
   transition: all 500ms ease-in-out;
 }
 
@@ -113,14 +141,17 @@ Form.Group {
   position: absolute;
   border-radius: 5px;
   inset: 0;
-  background-color: #ffd300;
-  /* filter: hue-rotate(15deg); */
+  background-color: var(--button-color-dark);
   opacity: 0;
+  -webkit-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
   z-index: -1;
 }
 
 .btn-primary:hover {
-  box-shadow: 1px 1px 6px 1px #c27017;
+  -webkit-box-shadow: 1px 1px 6px 1px var(--button-shadow);
+  box-shadow: 1px 1px 6px 1px var(--button-shadow);
   scale: 1.02;
 }
 

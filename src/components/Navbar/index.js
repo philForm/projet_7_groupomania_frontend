@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../services/storage_service";
 
 import logo from "../../assets/logo_groupomania_navbar.png";
-import shut from "../../assets/button-icon-shut-cliparts.png"
+import shut from "../../assets/button-icon-shut-cliparts.png";
 
-import "./navbar.css"
+import "./navbar.css";
 
 /**
  * Barre de navigation :
@@ -18,37 +18,11 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  console.log(deconnect);
-
   const [logged, setLogged] = useState(false);
   const [userId, setUserId] = useState(tokenService.idCompare());
   const [data, setData] = useState([]);
+  const [display, setDisplay] = useState(true)
 
-  console.log(tokenService.idCompare())
-
-
-  // let picture = null
-
-  // /**
-  //  * Récupère un utilisateurs de la BDD
-  //  */
-  // const fetchUser = async () => {
-  //   try {
-  //     const result = await axios.get(`${process.env.REACT_APP_URL_API}api/auth/${userId}`);
-  //     // Le résultat est assigné à data du useState
-  //     // setData(result.data);
-  //     // picture = result.data.user_picture
-  //     console.log(result.data)
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //   };
-  // };
-
-  // if (userId)
-  //   // fetchUser();
-
-  console.log(data.user_picture);
 
   /**
    * Connecte un utilisateur :
@@ -58,8 +32,10 @@ const Navbar = () => {
   const isLogged = (logged) => {
     if (tokenService.isLogged()) {
       logged = true;
+      // setDisplay(false)
     } else {
       logged = false;
+      // setDisplay(true)
     }
     return logged;
   };
@@ -76,24 +52,22 @@ const Navbar = () => {
     navigate("/form");
   };
 
-  console.log("================= isLogged(logged)")
-  console.log(isLogged(logged))
-
-
   return (
     <div className="fixe nav nav__pad nav__height">
       <div>
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>
       <div className="nav">
-        <ul className="nav nav_mob">
-          <li className="">
-            <Link className="" aria-current="page" to="/">Accueil</Link>
-          </li>
-          <li className="nav">
-            <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
-          </li>
-        </ul>
+        {!isLogged(logged) &&
+          <ul className="nav nav_mob">
+            <li className="">
+              <Link className="" aria-current="page" to="/">Accueil</Link>
+            </li>
+            <li className="nav" id="nav-signup">
+              <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
+            </li>
+          </ul>
+        }
         {isLogged(logged) &&
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
@@ -101,14 +75,13 @@ const Navbar = () => {
                 <img id="user_avatar" src={data.user_picture} alt="avatar" />
               </Link>
             </div>
-            <div className="popup">Changer l'image de votre avatar</div>
+            <div className="popup">Changez l'image de votre avatar</div>
             <div className="nav__deconnect">
               <button onClick={logout} className="nav__deconnect">
                 <img src={shut} alt="icone de déconnexion" />
               </button>
             </div>
             <div className="popup">Déconnexion</div>
-
           </div>
         }
       </div>

@@ -9,7 +9,7 @@ const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
  * @param {*} props 
  */
 const Signup = (props) => {
-    // const [validated, setValidated] = useState(false);
+
     const [validInput, setValidInput] = useState({
         bool: true,
         text: "Champ requis !"
@@ -26,7 +26,6 @@ const Signup = (props) => {
         }
     });
 
-    // console.log(props)
 
     const firstName = useRef();
     const firstNameControl = useRef();
@@ -40,14 +39,11 @@ const Signup = (props) => {
     const valid2 = useRef();
     const formVerif = useRef();
 
-    // console.log(process.env.REACT_APP_URL_API);
-
-
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        // e.stopPropagation()
+
         console.log(valid);
         console.log(valid2);
         console.log(emailControl.current.innerText);
@@ -138,12 +134,6 @@ const Signup = (props) => {
             })
                 .catch(err => console.log(err));
         };
-
-
-
-
-
-        // 
 
         // Pour changer l'attribut isvalid
         console.log(valid.current.attributes[0].value)

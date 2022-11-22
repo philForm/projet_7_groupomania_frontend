@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../FormElem/formElem.css";
@@ -20,7 +20,6 @@ const Profil = () => {
 
     const userId = tokenService.idCompare();
 
-    // ---------------------------------------------
     /**
      * Previsualisation de l'image :
      */
@@ -28,11 +27,10 @@ const Profil = () => {
         setLogo({
             ...logo,
             file: e.target.files[0],
-            filepreview: URL.createObjectURL(e.target.files[0]),
+            filepreview: URL.createObjectURL(e.target.files[0])
         });
-    }
+    };
 
-    // ---------------------------------------------
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -41,7 +39,7 @@ const Profil = () => {
         setLogo({
             ...logo,
             file: avatar.current.files[0],
-            filepreview: null,
+            filepreview: null
         });
 
         let formData = new FormData();
@@ -49,8 +47,7 @@ const Profil = () => {
 
         // Envoie l'image dans la BDD :
         await axios.put(`${process.env.REACT_APP_URL_API}api/auth/signup/${userId}`,
-            formData
-            ,
+            formData,
             {
                 headers: { "Content-Type": "multipart/form-data" }
             }
@@ -65,16 +62,11 @@ const Profil = () => {
 
         fetchData();
 
-
-
         // Vide les champs du formulaire :
         document.forms["profil_form"].reset();
 
         // Redirection vers la page des posts :
         navigate('/');
-
-        // console.log('======result');
-        // console.log(result.data.user_picture);
 
     };
 
@@ -93,8 +85,6 @@ const Profil = () => {
         };
 
     };
-
-
 
     return (
         <div className='App'>
@@ -129,7 +119,7 @@ const Profil = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Profil;

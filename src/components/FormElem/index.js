@@ -14,13 +14,18 @@ const FormElem = () => {
     const login = useRef();
     const span = useRef();
 
+
     const formDisplayAfterValid = () => {
         login.current.classList = "disp_none";
         span.current.classList = "disp_bloc";
-        setDisplaySignup(false);
-        setDisplayLogin(true)
+        setDisplaySignup(true);
+        setDisplayLogin(false);
     }
 
+    /**
+     * Alterne l'affichage entre signup et login
+     * @param {*} e 
+     */
     const displayForm = (e) => {
         if (e.target.id === "signup") {
             login.current.className = "wid btn-primary";
@@ -32,8 +37,8 @@ const FormElem = () => {
             signup.current.className = "wid btn-primary";
             setDisplaySignup(false);
             setDisplayLogin(true);
-        }
-    }
+        };
+    };
 
     return (
         <div className="App" >
@@ -56,7 +61,7 @@ const FormElem = () => {
                 </span>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default FormElem
+export default FormElem;

@@ -3,7 +3,7 @@ import axios from "axios";
 import PostCreate from "../PostCreate";
 import Posts from "../Posts";
 
-import "./posts.css"
+import "./posts.css";
 import { tokenService } from "../../services/storage_service";
 
 /**
@@ -55,11 +55,11 @@ function Home() {
 
   return (
     <div className="App">
-      <PostCreate fetchData={fetchData} />
+      {userId && <PostCreate fetchData={fetchData} />}
       <Posts data={data} fetchData={fetchData} />
     </div>
   );
 
-}
+};
 
 export default Home;

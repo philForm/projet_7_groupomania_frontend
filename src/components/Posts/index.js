@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect, useRef, setState } from 'react';
+import React, { useState, Fragment, useRef } from 'react';
 import axios from 'axios';
 import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/storage_service';
@@ -9,15 +9,12 @@ const Posts = ({ data, fetchData }) => {
 
 
     const [displayId, setDisplayId] = useState(null);
-    const [posts, setPosts] = useState(data);
 
-    const [userIdLocal, setUserTdLocal] = useState(tokenService.idCompare());
-
-    const [bool, setBool] = useState(false);
+    const [userIdLocal, setUserIdLocal] = useState(tokenService.idCompare());
 
     const [image, setImage] = useState({
         file: [],
-        filepreview: null,
+        filepreview: null
     });
 
     /**
@@ -31,24 +28,11 @@ const Posts = ({ data, fetchData }) => {
         });
     };
 
-
-    console.log("== out useEffect ========== userIdLocal")
-    console.log(userIdLocal)
-
-
-    // Récupération de l'id du locaStorage :
-    // setUserTdLocal(tokenService.idCompare());
-
     // Récupération du token dans le localStorage :
     const token = tokenService.recupToken();
 
     // Récupération du rôle
     const role = tokenService.recupRole();
-    console.log("============ role")
-    console.log(role)
-
-    // console.log(token)
-    // console.log(data);
 
     const form = useRef()
     const post = useRef()
@@ -85,7 +69,7 @@ const Posts = ({ data, fetchData }) => {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
-                    },
+                    }
                 }
             )
                 .then((res) => {
@@ -105,29 +89,24 @@ const Posts = ({ data, fetchData }) => {
      * @param {number} id : id du post :
      */
     const postUpdate = async (id, e) => {
+
         e.preventDefault();
 
         // Supprimer la prévisualisation :
         setImage({
             ...image,
             file: picture.current.files[0],
-            filepreview: null,
+            filepreview: null
         });
 
         let formData = new FormData();
 
-        console.log(`contain.id : ${contain.id}`);
-        console.log(`id : ${id}`);
-
         // Récupère l'id de l'utilisateur propriétaire du post :
         const user = await axios.get(`${process.env.REACT_APP_URL_API}api/post/${id}`);
-        console.log('============= userId')
-        console.log(user.data.userId)
 
         formData.append('post', post.current.value);
         formData.append('image', picture.current.files[0]);
-        // formData.append('postId', id)
-        formData.append('userId', user.data.userId)
+        formData.append('userId', user.data.userId);
 
         // Modification du post :
         await axios.put(`${process.env.REACT_APP_URL_API}api/post/${id}`, formData,
@@ -144,41 +123,22 @@ const Posts = ({ data, fetchData }) => {
                     return res
                 }
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
 
-        toggle()
+        toggle();
 
         fetchData();
     };
 
-    const [increm, setIncrem] = useState(0);
-
-    const [disp, setDisp] = useState(null);
-
-    const idDisp = (id) => {
-        setDisp(id)
-        console.log(disp)
-        return disp
-    }
-
-
-    const increment = (increm, id) => {
-        // setDisp(id)
-        // if (disp === id) {
-        setIncrem(increm + 1);
-    }
 
     const postEvaluate = async (postId, item) => {
         let like = [];
-        if (item === 1) {
-            console.log("évaluation positive", postId, userIdLocal)
-            like = [1, postId, userIdLocal]
-        }
-        else {
-            console.log("évaluation négative", postId, userIdLocal)
+        if (item === 1)
+            like = [1, postId, userIdLocal];
+        else
             like = [0, postId, userIdLocal];
-            console.log(like)
-        }
+
+        console.log(like)
 
         await axios.post(`${process.env.REACT_APP_URL_API}api/post/like`, {
             like: item,
@@ -189,16 +149,10 @@ const Posts = ({ data, fetchData }) => {
                 Authorization: `Bearer ${token}`
             }
         }).then(function (res) {
-            console.log(res);
             document.getElementById("like1_" + res.data.post_id).textContent = res.data.like1;
             document.getElementById("like0_" + res.data.post_id).textContent = res.data.like0;
         });
     };
-
-    // useEffect(() => {
-    //     console.log(postEvaluate())
-    // }, [])
-
 
     return (
         <Fragment>
@@ -220,7 +174,7 @@ const Posts = ({ data, fetchData }) => {
                             </div>
                         </div>
                     </div>
-                    {((userIdLocal === item.user_id) || role === 0) &&
+                    {((userIdLocal === item.user_id) || role === 1) &&
                         <div>
                             <button
                                 id={`btn - ${item.id}`}

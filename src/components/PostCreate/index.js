@@ -18,7 +18,6 @@ const PostCreate = (props) => {
 
     // Récupération de token d'authentification du localStorage :
     const token = tokenService.recupToken();
-    console.log(token);
 
     // Récupération de l'id du l'utilisateur du localStorage :
     const userId = tokenService.idCompare();
@@ -33,7 +32,6 @@ const PostCreate = (props) => {
             filepreview: URL.createObjectURL(e.target.files[0]),
         });
     };
-
 
     const handleSubmit = async (e) => {
 
@@ -60,7 +58,7 @@ const PostCreate = (props) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`
-                },
+                }
             }
         )
             .then((res) => {
@@ -71,18 +69,12 @@ const PostCreate = (props) => {
             })
             .catch(err => console.error(err));
 
-
         props.fetchData();
-
-        // document.getElementById('picture').value = "";
-        // document.getElementById('post-create').value = "";
 
         // Vide les champs du formulaire :
         document.forms["post-create_form"].reset();
 
-
     };
-
 
     return (
         <div className='posts__container'>
@@ -98,7 +90,6 @@ const PostCreate = (props) => {
                         id='picture'
                         name='picture'
                         accept='image/jpg, image/jpeg, image/png image/gif'
-                        // onChange={(e) => setImage(e.target.files[0], e.target.files[0].name)}
                         onChange={(e) => handleChangeImage(e)}
                         ref={picture} /><br />
                 </div>
@@ -112,7 +103,7 @@ const PostCreate = (props) => {
                 <button className='btn-primary' type='submit'>Envoyer</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default PostCreate;
