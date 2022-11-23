@@ -3,6 +3,8 @@ import axios from 'axios';
 import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/storage_service';
 
+import "./posts.css"
+
 
 
 const Posts = ({ data, fetchData }) => {
@@ -38,7 +40,6 @@ const Posts = ({ data, fetchData }) => {
     const post = useRef()
     const picture = useRef()
     const contain = useRef()
-
 
 
     const toggle = (id) => {
@@ -151,7 +152,12 @@ const Posts = ({ data, fetchData }) => {
         }).then(function (res) {
             document.getElementById("like1_" + res.data.post_id).textContent = res.data.like1;
             document.getElementById("like0_" + res.data.post_id).textContent = res.data.like0;
-        });
+        }).catch(err => {
+            console.log(err.response.statusText);
+            console.log(err);
+            document.getElementById(`error_${postId}`).textContent = "Vous n'êtes pas connecté !";
+            document.getElementById(`error_${postId}`).classList.add("my_red");
+        })
     };
 
     return (
@@ -175,7 +181,7 @@ const Posts = ({ data, fetchData }) => {
                         </div>
                     </div>
                     {((userIdLocal === item.user_id) || role === 1) &&
-                        <div>
+                        <div className='posts__modif'>
                             <button
                                 id={`btn - ${item.id}`}
                                 onClick={() => toggle(item.id)}
@@ -244,6 +250,10 @@ const Posts = ({ data, fetchData }) => {
                             <span id={"like0_" + item.id}>{item.like0}</span>
                         </div>
                     </div>
+                    <span
+                        id={`error_${item.id}`}
+                        type="invalid"
+                    />
                 </div>
             )
             )}

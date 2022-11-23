@@ -3,7 +3,7 @@ import axios from "axios";
 import PostCreate from "../PostCreate";
 import Posts from "../Posts";
 
-import "./posts.css";
+import "./home.css";
 import { tokenService } from "../../services/storage_service";
 
 /**

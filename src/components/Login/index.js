@@ -1,8 +1,10 @@
+import React, { useRef } from 'react';
 import axios from 'axios';
-import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { tokenService } from '../../services/storage_service';
+
+import "./login.css";
 
 
 const Login = () => {
@@ -11,8 +13,7 @@ const Login = () => {
 
     const email = useRef();
     const password = useRef();
-    const validEmail = useRef();
-    const validPassword = useRef();
+    const errorMsg = useRef();
 
 
     const handleSubmit = async (e) => {
@@ -32,7 +33,13 @@ const Login = () => {
                     navigate("/");
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err.response.data);
+                errorMsg.current.innerText = err.response.data.message;
+                errorMsg.current.classList = "my_red";
+
+            });
+
 
     };
 
@@ -48,10 +55,8 @@ const Login = () => {
                         type="email"
                         name='email'
                         placeholder="Email"
-                        aria-describedby="inputGroupPrepend"
                         required
                     />
-                    <span type="invalid" ref={validEmail} />
                 </div>
                 <div className='disp_flex_column'>
                     <label htmlFor='connect_pass'>Mot de passe</label>
@@ -62,9 +67,11 @@ const Login = () => {
                         placeholder="Mot de passe"
                         required
                     />
-                    <span type="invalid" ref={validPassword} />
                 </div>
-                <button className='btn-primary' type="submit">Connexion</button>
+                <div className='login_error'>
+                    <span type="invalid" ref={errorMsg} />
+                    <button className='btn-primary' type="submit">Connexion</button>
+                </div>
             </form>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../FormElem/formElem.css";
-import "../Home/posts.css";
+import "../Home/home.css";
 import "./profil.css";
 import { tokenService } from '../../services/storage_service';
 

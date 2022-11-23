@@ -81,6 +81,9 @@ body {
 
 .my_red {
   color: red;
+  border: 2px solid red;
+  padding: 3px;
+  border-radius: 3px;
 }
 
 .disp_none {

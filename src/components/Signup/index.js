@@ -176,7 +176,6 @@ const Signup = (props) => {
                         type="email"
                         name='email'
                         placeholder="Email"
-                        aria-describedby="inputGroupPrepend"
                         required
                     />
                     <span type="invalid" ref={emailControl}>

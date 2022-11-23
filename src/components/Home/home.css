@@ -89,7 +89,13 @@
     padding-right: 10px;
 }
 
-.posts__eval div:hover {
+.posts__eval i {
+    -webkit-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+.posts__eval i:hover {
     color: red;
 }
 
