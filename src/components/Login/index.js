@@ -34,7 +34,6 @@ const Login = () => {
                 }
             })
             .catch(err => {
-                console.log(err.response.data);
                 errorMsg.current.innerText = err.response.data.message;
                 errorMsg.current.classList = "my_red";
 

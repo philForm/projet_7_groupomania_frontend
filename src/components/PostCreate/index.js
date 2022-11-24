@@ -48,7 +48,7 @@ const PostCreate = (props) => {
 
         data.append('image', picture.current.files[0]);
         data.append('post', post.current.value);
-        data.append('userId', userId)
+        data.append('userId', userId);
 
         for (let item of data)
             console.log(item);
@@ -63,7 +63,6 @@ const PostCreate = (props) => {
         )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res)
                     return res
                 }
             })
@@ -84,14 +83,15 @@ const PostCreate = (props) => {
                     <textarea type="textarea" id='post-create' name='post' ref={post} /><br />
                 </div>
                 <div className='posts__form'>
-                    <label htmlFor="picture">Image</label><br />
                     <input
                         type="file"
-                        id='picture'
+                        id='post-create_picture'
                         name='picture'
                         accept='image/jpg, image/jpeg, image/png image/gif'
                         onChange={(e) => handleChangeImage(e)}
-                        ref={picture} /><br />
+                        ref={picture}
+                    /><br />
+                    <label htmlFor="post-create_picture" className='btn-primary'>Image</label><br /><br />
                 </div>
                 {image.filepreview !== null &&
                     <div className='posts_preview'>

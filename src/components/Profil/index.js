@@ -54,7 +54,6 @@ const Profil = () => {
         )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res)
                     return res
                 }
             })
@@ -92,8 +91,7 @@ const Profil = () => {
                 <h2>Ajouter une image à votre profil</h2>
                 <form noValidate onSubmit={handleSubmit} name="profil_form" >
                     <div className='disp_flex_column'>
-                        <label htmlFor='profil_avatar'>Avatar</label>
-                        <input className=''
+                        <input
                             ref={avatar}
                             id='profil_avatar'
                             type="file"
@@ -104,6 +102,7 @@ const Profil = () => {
                             aria-describedby="inputGroupPrepend"
                             required
                         />
+                        <label htmlFor='profil_avatar' className='btn-primary'>Choisissez un nouvel avatar</label>
                         {logo.filepreview !== null &&
                             <div className='profil_preview'>
                                 <img

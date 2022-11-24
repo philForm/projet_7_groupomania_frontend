@@ -45,10 +45,8 @@ const Posts = ({ data, fetchData }) => {
     const toggle = (id) => {
 
         if (displayId === id) {
-            console.log(displayId)
             setDisplayId(null);
         } else {
-            console.log(displayId)
             setDisplayId(id);
         }
     }
@@ -75,7 +73,6 @@ const Posts = ({ data, fetchData }) => {
             )
                 .then((res) => {
                     if (res.status === 200) {
-                        console.log(res)
                         return res
                     }
                 })
@@ -120,7 +117,6 @@ const Posts = ({ data, fetchData }) => {
         )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res)
                     return res
                 }
             })
@@ -139,8 +135,6 @@ const Posts = ({ data, fetchData }) => {
         else
             like = [0, postId, userIdLocal];
 
-        console.log(like)
-
         await axios.post(`${process.env.REACT_APP_URL_API}api/post/like`, {
             like: item,
             postId: postId
@@ -154,7 +148,6 @@ const Posts = ({ data, fetchData }) => {
             document.getElementById("like0_" + res.data.post_id).textContent = res.data.like0;
         }).catch(err => {
             console.log(err.response.statusText);
-            console.log(err);
             document.getElementById(`error_${postId}`).textContent = "Vous n'êtes pas connecté !";
             document.getElementById(`error_${postId}`).classList.add("my_red");
         })
@@ -209,14 +202,17 @@ const Posts = ({ data, fetchData }) => {
                                         </textarea> <br />
                                     </div>
                                     <div className='posts__form'>
-                                        <label htmlFor="picture">Nouvelle image</label><br />
                                         <input
                                             type="file"
-                                            id='picture'
+                                            id='posts_picture'
                                             name='picture'
                                             accept='image/jpg, image/jpeg, image/png image/gif'
                                             onChange={(e) => handleChangeImage(e)}
-                                            ref={picture} /><br />
+                                            ref={picture}
+                                        />
+                                        <br />
+                                        <label htmlFor="posts_picture" className='btn-primary'>Nouvelle image</label>
+                                        <br /><br />
                                     </div>
                                     {image.filepreview !== null &&
                                         <div className='posts_preview'>

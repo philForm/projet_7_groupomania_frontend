@@ -124,6 +124,7 @@ form input:focus {
 }
 
 input[type="file"] {
+    display: none;
     background-color: var(--quinary-color);
     height: 30px;
     padding: 6px;

@@ -44,16 +44,6 @@ const Signup = (props) => {
 
         e.preventDefault();
 
-        console.log(valid);
-        console.log(valid2);
-        console.log(emailControl.current.innerText);
-        console.log(password.current.value);
-        console.log(passwordConfirm.current.value);
-
-        console.log(formVerif);
-        console.log(firstName.current.required);
-        console.log(firstName.current.value.length);
-
         validInput.bool = true;
 
         requiredForm(firstName, firstNameControl, validInput, "my_red", "invalid-feedback");
@@ -97,10 +87,6 @@ const Signup = (props) => {
             }
         }
 
-        console.log(validInput.bool);
-        console.log(verifEmail.bool);
-        console.log(verifPassword.bool);
-
         if (verifEmail.bool && verifPassword.bool && validInput.bool) {
 
             axios.post(`${process.env.REACT_APP_URL_API}api/auth/signup`,
@@ -114,14 +100,12 @@ const Signup = (props) => {
             ).then((res) => {
                 // Si tout s'est bien passé, l'utilisateur est créé :
                 if (res.status === 201) {
-                    console.log(res);
-                    props.sign();
+                    props.dispForm();
                 }
                 // Si l'email existe déjà dans la BDD :
                 if (res.data.message) {
                     emailControl.current.classList.value = "my_red";
                     emailControl.current.innerText = res.data.message;
-                    console.log(res.data.message);
                 }
                 // Si le mot de passe n'est pas assez sécurisé :
                 if (res.data.message2) {
@@ -132,7 +116,7 @@ const Signup = (props) => {
 
                 }
             })
-                .catch(err => console.log(err));
+                .catch(err => console.error(err));
         };
 
         // Pour changer l'attribut isvalid

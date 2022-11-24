@@ -7,36 +7,29 @@ import './formElem.css'
 
 const FormElem = () => {
 
-    const [displaySignup, setDisplaySignup] = useState(true)
-    const [displayLogin, setDisplayLogin] = useState(false)
+    const [displaySignup, setDisplaySignup] = useState(false)
+    const [displayLogin, setDisplayLogin] = useState(true)
 
     const signup = useRef();
     const login = useRef();
     const span = useRef();
 
 
-    const formDisplayAfterValid = () => {
-        login.current.classList = "disp_none";
-        span.current.classList = "disp_bloc";
-        setDisplaySignup(true);
-        setDisplayLogin(false);
-    }
-
     /**
      * Alterne l'affichage entre signup et login
-     * @param {*} e 
      */
-    const displayForm = (e) => {
-        if (e.target.id === "signup") {
+    const displayForm = () => {
+        if (login.current.className === "disp_none") {
             login.current.className = "wid btn-primary";
             signup.current.className = "disp_none";
-            setDisplaySignup(true);
-            setDisplayLogin(false);
+            setDisplaySignup(false);
+            setDisplayLogin(true);
+
         } else {
             login.current.className = "disp_none";
             signup.current.className = "wid btn-primary";
-            setDisplaySignup(false);
-            setDisplayLogin(true);
+            setDisplaySignup(true);
+            setDisplayLogin(false);
         };
     };
 
@@ -44,14 +37,14 @@ const FormElem = () => {
         <div className="App" >
             <div className="form_1" >
                 <button className="btn-primary disp_none" onClick={displayForm} id="signup" ref={signup}>
-                    Aller au formulaire d'inscription
+                    Aller au formulaire de connexion
                 </button>
 
                 <button className="btn-primary wid" onClick={displayForm} id="login" ref={login}>
-                    Aller au formulaire de connexion
+                    Aller au formulaire d'inscription
                 </button>
                 {displaySignup &&
-                    <Signup sign={formDisplayAfterValid} />
+                    <Signup dispForm={displayForm} />
                 }
                 {displayLogin &&
                     <Login />

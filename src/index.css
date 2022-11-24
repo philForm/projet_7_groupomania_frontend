@@ -80,6 +80,8 @@ body {
 }
 
 .my_red {
+  display: inline-block;
+  margin-top: 5px;
   color: red;
   border: 2px solid red;
   padding: 3px;

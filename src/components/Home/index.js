@@ -51,8 +51,6 @@ function Home() {
     fetchData();
   }, []);
 
-  console.log(data)
-
   return (
     <div className="App">
       {userId && <PostCreate fetchData={fetchData} />}
