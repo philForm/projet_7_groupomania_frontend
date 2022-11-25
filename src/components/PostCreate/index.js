@@ -50,6 +50,8 @@ const PostCreate = (props) => {
         data.append('post', post.current.value);
         data.append('userId', userId);
 
+        console.log(picture.current.files[0].size)
+
         for (let item of data)
             console.log(item);
 
@@ -62,9 +64,13 @@ const PostCreate = (props) => {
             }
         )
             .then((res) => {
-                if (res.status === 200) {
-                    return res
-                }
+                if (res.status === 201) {
+                    console.log(typeof res.data.picture)
+                    if (res.data.picture !== undefined) {
+                        props.responseFunct(res.data.picture);
+                        // window.onload = func();
+                    };
+                };
             })
             .catch(err => console.error(err));
 

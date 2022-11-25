@@ -7,7 +7,7 @@ import "./posts.css"
 
 
 
-const Posts = ({ data, fetchData }) => {
+const Posts = ({ data, fetchData, response }) => {
 
 
     const [displayId, setDisplayId] = useState(null);
@@ -23,11 +23,19 @@ const Posts = ({ data, fetchData }) => {
     * Prévisualisation de l'image :
     */
     const handleChangeImage = e => {
-        setImage({
-            ...image,
-            file: e.target.files[0],
-            filepreview: URL.createObjectURL(e.target.files[0]),
-        });
+        if (e.target.files[0] !== undefined) {
+            setImage({
+                ...image,
+                file: e.target.files[0],
+                filepreview: URL.createObjectURL(e.target.files[0]),
+            });
+        } else {
+            setImage({
+                ...image,
+                file: picture.current.files[0],
+                filepreview: null
+            });
+        }
     };
 
     // Récupération du token dans le localStorage :
@@ -230,7 +238,9 @@ const Posts = ({ data, fetchData }) => {
                     <div className='posts__img'>
                         {(item.post_picture && item.post_picture !== "") ?
                             <img src={item.post_picture} alt="élephant volant" /> :
-                            <img src='' alt='' />}
+                            (response !== "") &&
+                            <span id="posts-size-error" className='my_red'>{response}</span>
+                        }
                     </div>
                     <div className='posts__post'>
                         {item.post}

@@ -13,6 +13,8 @@ function Home() {
 
   const [data, setData] = useState([]);
 
+  const [response, setResponse] = useState("");
+
   const userId = tokenService.idCompare();
 
   /**
@@ -51,10 +53,12 @@ function Home() {
     fetchData();
   }, []);
 
+  console.log(response);
+
   return (
     <div className="App">
-      {userId && <PostCreate fetchData={fetchData} />}
-      <Posts data={data} fetchData={fetchData} />
+      {userId && <PostCreate fetchData={fetchData} responseFunct={setResponse} />}
+      <Posts data={data} fetchData={fetchData} response={response} />
     </div>
   );
 
