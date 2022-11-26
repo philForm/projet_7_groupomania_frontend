@@ -24,11 +24,20 @@ const Profil = () => {
      * Previsualisation de l'image :
      */
     const handleChangeImage = e => {
-        setLogo({
-            ...logo,
-            file: e.target.files[0],
-            filepreview: URL.createObjectURL(e.target.files[0])
-        });
+
+        if (e.target.files[0] !== undefined) {
+            setLogo({
+                ...logo,
+                file: e.target.files[0],
+                filepreview: URL.createObjectURL(e.target.files[0]),
+            });
+        } else {
+            setLogo({
+                ...logo,
+                file: e.target.files[0],
+                filepreview: null
+            });
+        }
     };
 
 
@@ -53,11 +62,19 @@ const Profil = () => {
             }
         )
             .then((res) => {
-                if (res.status === 200) {
-                    return res
+                if (res.status === 200 || res.status === 201) {
+                    if (res.data.picture !== undefined) {
+                        msgErrorDisplay(res.data.picture);
+                        setTimeout(msgErrorRemove, 10000);
+                    } else {
+                        redirection();
+                    };
                 }
             })
             .catch(err => console.error(err));
+    };
+
+    function redirection() {
 
         fetchData();
 
@@ -66,8 +83,17 @@ const Profil = () => {
 
         // Redirection vers la page des posts :
         navigate('/');
+    }
 
-    };
+    function msgErrorDisplay(modif) {
+        document.getElementById(`profil-error`).innerText = modif;
+        document.getElementById(`profil-error`).classList.add("my_red");
+    }
+
+    function msgErrorRemove() {
+        document.getElementById(`profil-error`).innerText = "";
+        document.getElementById(`profil-error`).classList.remove("my_red");
+    }
 
     /**
      * Récupère dans la BDD les infos de l'utilisateur :
@@ -114,7 +140,13 @@ const Profil = () => {
                     </div>
                     <button
                         className='btn-primary'
-                        type="submit">Ajouter ou changer votre avatar</button>
+                        type="submit">Ajouter ou changer votre avatar
+                    </button>
+                    <button
+                        onClick={redirection}
+                        className='btn-primary'>Annuler
+                    </button>
+                    < span id={`profil-error`} />
                 </form>
             </div>
         </div>

@@ -65,10 +65,8 @@ const PostCreate = (props) => {
         )
             .then((res) => {
                 if (res.status === 201) {
-                    console.log(typeof res.data.picture)
                     if (res.data.picture !== undefined) {
                         props.responseFunct(res.data.picture);
-                        // window.onload = func();
                     };
                 };
             })

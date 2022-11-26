@@ -124,8 +124,12 @@ const Posts = ({ data, fetchData, response }) => {
             }
         )
             .then((res) => {
-                if (res.status === 200) {
-                    return res
+                console.log(res.data.picture)
+                if (res.status === 201) {
+                    if (res.data.picture !== undefined) {
+                        msgErrorDisplay(id, res.data.picture);
+                        setTimeout(() => msgErrorRemove(id), 10000);
+                    }
                 }
             })
             .catch(err => console.error(err));
@@ -134,6 +138,17 @@ const Posts = ({ data, fetchData, response }) => {
 
         fetchData();
     };
+
+    function msgErrorDisplay(id, modif) {
+        document.getElementById(`span_${id}`).innerText = modif;
+        document.getElementById(`span_${id}`).classList.add("my_red");
+    }
+
+    function msgErrorRemove(id) {
+        document.getElementById(`span_${id}`).innerText = "";
+        document.getElementById(`span_${id}`).classList.remove("my_red");
+
+    }
 
 
     const postEvaluate = async (postId, item) => {
@@ -184,7 +199,7 @@ const Posts = ({ data, fetchData, response }) => {
                     {((userIdLocal === item.user_id) || role === 1) &&
                         <div className='posts__modif'>
                             <button
-                                id={`btn - ${item.id}`}
+                                id={`btn-${item.id}`}
                                 onClick={() => toggle(item.id)}
                                 className="btn-primary"
                             >Modifier</button>
@@ -241,6 +256,8 @@ const Posts = ({ data, fetchData, response }) => {
                             (response !== "") &&
                             <span id="posts-size-error" className='my_red'>{response}</span>
                         }
+                        < span id={`span_${item.id}`} />
+
                     </div>
                     <div className='posts__post'>
                         {item.post}
