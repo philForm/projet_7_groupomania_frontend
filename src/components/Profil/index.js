@@ -5,6 +5,7 @@ import "../FormElem/formElem.css";
 import "../Home/home.css";
 import "./profil.css";
 import { tokenService } from '../../services/storage_service';
+import { msgErrorDisplay, msgErrorRemove } from '../../functions/msg-errors_functions';
 
 const Profil = () => {
 
@@ -17,6 +18,9 @@ const Profil = () => {
     });
 
     const avatar = useRef();
+
+    // Récupération du token dans le localStorage :
+    const token = tokenService.recupToken();
 
     const userId = tokenService.idCompare();
 
@@ -58,14 +62,17 @@ const Profil = () => {
         await axios.put(`${process.env.REACT_APP_URL_API}api/auth/signup/${userId}`,
             formData,
             {
-                headers: { "Content-Type": "multipart/form-data" }
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
+                }
             }
         )
             .then((res) => {
                 if (res.status === 200 || res.status === 201) {
                     if (res.data.picture !== undefined) {
-                        msgErrorDisplay(res.data.picture);
-                        setTimeout(msgErrorRemove, 10000);
+                        msgErrorDisplay(`profil-error`, res.data.picture);
+                        setTimeout(() => msgErrorRemove(`profil-error`), 10000);
                     } else {
                         redirection();
                     };
@@ -74,7 +81,7 @@ const Profil = () => {
             .catch(err => console.error(err));
     };
 
-    function redirection() {
+    const redirection = () => {
 
         fetchData();
 
@@ -83,17 +90,7 @@ const Profil = () => {
 
         // Redirection vers la page des posts :
         navigate('/');
-    }
-
-    function msgErrorDisplay(modif) {
-        document.getElementById(`profil-error`).innerText = modif;
-        document.getElementById(`profil-error`).classList.add("my_red");
-    }
-
-    function msgErrorRemove() {
-        document.getElementById(`profil-error`).innerText = "";
-        document.getElementById(`profil-error`).classList.remove("my_red");
-    }
+    };
 
     /**
      * Récupère dans la BDD les infos de l'utilisateur :

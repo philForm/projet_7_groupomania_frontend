@@ -6,7 +6,9 @@ import { tokenService } from '../../services/storage_service';
 
 import "./login.css";
 
-
+/**
+ * Formulaire de connexion :
+ */
 const Login = () => {
 
     const navigate = useNavigate();
@@ -15,7 +17,9 @@ const Login = () => {
     const password = useRef();
     const errorMsg = useRef();
 
-
+    /**
+     * Sounission du formulaire :
+     */
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -25,6 +29,7 @@ const Login = () => {
             password: password.current.value
         };
 
+        // Envoie l'email et le mot de passe au backend :
         axios.post(`${process.env.REACT_APP_URL_API}api/auth/login`, dataLogin)
 
             .then((res) => {
@@ -36,7 +41,6 @@ const Login = () => {
             .catch(err => {
                 errorMsg.current.innerText = err.response.data.message;
                 errorMsg.current.classList = "my_red";
-
             });
 
 

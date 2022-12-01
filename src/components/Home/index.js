@@ -35,12 +35,12 @@ function Home() {
     fetchUser();
 
   /**
-   * Récupère tous les posts de la BDD
+   * Récupère tous les posts de la BDD :
    */
   const fetchData = async () => {
     try {
       const result = await axios.get(`${process.env.REACT_APP_URL_API}api/post`);
-      // Le résultat est assigné à data du useState
+      // Le résultat est assigné à data du useState :
       setData(result.data);
     }
     catch (error) {
@@ -53,7 +53,7 @@ function Home() {
     fetchData();
   }, []);
 
-  console.log(response);
+  // console.log(response);
 
   return (
     <div className="App">

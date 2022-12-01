@@ -2,9 +2,11 @@ import { useRef, useState } from "react";
 import Signup from "../Signup";
 import Login from "../Login";
 
-import './formElem.css'
+import './formElem.css';
 
-
+/**
+ * Formulaires d'enregistrement et de connexion :
+ */
 const FormElem = () => {
 
     const [displaySignup, setDisplaySignup] = useState(false)
@@ -12,7 +14,6 @@ const FormElem = () => {
 
     const signup = useRef();
     const login = useRef();
-    const span = useRef();
 
 
     /**
@@ -49,9 +50,6 @@ const FormElem = () => {
                 {displayLogin &&
                     <Login />
                 }
-                <span className="disp_none" ref={span}>
-                    Vous pouvez vous connecter !
-                </span>
             </div>
         </div>
     );

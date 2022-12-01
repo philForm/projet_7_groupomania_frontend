@@ -121,33 +121,11 @@ div.nav__deconnect:hover + div.popup {
     transform: translateX(-180px);
 }
 
-@-webkit-keyframes App-logo-spin {
-    from {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes App-logo-spin {
-    from {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@media all and (max-width: 768px) {
+/* @media all and (max-width: 768px) {
     .connect {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
     }
-}
+} */

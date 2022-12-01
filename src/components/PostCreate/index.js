@@ -26,13 +26,24 @@ const PostCreate = (props) => {
      * Prévisualisation de l'image :
      */
     const handleChangeImage = e => {
-        setImage({
-            ...image,
-            file: e.target.files[0],
-            filepreview: URL.createObjectURL(e.target.files[0]),
-        });
+        if (e.target.files[0] !== undefined) {
+            setImage({
+                ...image,
+                file: e.target.files[0],
+                filepreview: URL.createObjectURL(e.target.files[0]),
+            });
+        } else {
+            setImage({
+                ...image,
+                file: picture.current.files[0],
+                filepreview: null
+            });
+        }
     };
 
+    /**
+     * Soumission du formulaire de création de post :
+     */
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -50,11 +61,12 @@ const PostCreate = (props) => {
         data.append('post', post.current.value);
         data.append('userId', userId);
 
-        console.log(picture.current.files[0].size)
+        // console.log(typeof picture.current.files[0]);
 
-        for (let item of data)
-            console.log(item);
+        // for (let item of data)
+        //     console.log(item);
 
+        // Envoie les données du post au backend :
         await axios.post(`${process.env.REACT_APP_URL_API}api/post`, data,
             {
                 headers: {
@@ -64,7 +76,8 @@ const PostCreate = (props) => {
             }
         )
             .then((res) => {
-                if (res.status === 201) {
+                if (res.status === 200 || res.status === 201) {
+                    // Si l'image est trop volumineuse :
                     if (res.data.picture !== undefined) {
                         props.responseFunct(res.data.picture);
                     };
@@ -95,7 +108,11 @@ const PostCreate = (props) => {
                         onChange={(e) => handleChangeImage(e)}
                         ref={picture}
                     /><br />
-                    <label htmlFor="post-create_picture" className='btn-primary'>Image</label><br /><br />
+                    <label
+                        htmlFor="post-create_picture"
+                        className='btn-primary disp-inl-block'>
+                        Ajouter un image
+                    </label><br /><br />
                 </div>
                 {image.filepreview !== null &&
                     <div className='posts_preview'>
@@ -104,7 +121,7 @@ const PostCreate = (props) => {
                             alt="UploadImage" />
                     </div>
                 }
-                <button className='btn-primary' type='submit'>Envoyer</button>
+                <button className='btn-primary' type='submit'>Publier</button>
             </form>
         </div>
     );

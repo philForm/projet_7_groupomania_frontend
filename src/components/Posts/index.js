@@ -3,10 +3,13 @@ import axios from 'axios';
 import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/storage_service';
 
-import "./posts.css"
+import { msgErrorDisplay, msgErrorRemove } from '../../functions/msg-errors_functions';
 
+import "./posts.css";
 
-
+/**
+ * Publication et modification de posts :
+ */
 const Posts = ({ data, fetchData, response }) => {
 
 
@@ -49,15 +52,18 @@ const Posts = ({ data, fetchData, response }) => {
     const picture = useRef()
     const contain = useRef()
 
-
+    /**
+     * Affiche et masque le formulaire de modification de post :
+     * @param {number} id : id du post :
+     */
     const toggle = (id) => {
 
         if (displayId === id) {
             setDisplayId(null);
         } else {
             setDisplayId(id);
-        }
-    }
+        };
+    };
 
     /**
      * Supprimer un post
@@ -71,7 +77,7 @@ const Posts = ({ data, fetchData, response }) => {
         );
 
         if (confirmation) {
-
+            // supprime un post :
             await axios.delete(`${process.env.REACT_APP_URL_API}api/post/${id}`,
                 {
                     headers: {
@@ -86,6 +92,7 @@ const Posts = ({ data, fetchData, response }) => {
                 })
                 .catch(err => console.error(err));
 
+            // Récupère tous les posts de la BDD:
             fetchData();
         };
     };
@@ -125,32 +132,27 @@ const Posts = ({ data, fetchData, response }) => {
         )
             .then((res) => {
                 console.log(res.data.picture)
-                if (res.status === 201) {
+                if (res.status === 200 || res.status === 201) {
                     if (res.data.picture !== undefined) {
-                        msgErrorDisplay(id, res.data.picture);
-                        setTimeout(() => msgErrorRemove(id), 10000);
+                        msgErrorDisplay(`span_${id}`, res.data.picture);
+                        setTimeout(() => msgErrorRemove(`span_${id}`), 10000);
                     }
                 }
             })
             .catch(err => console.error(err));
 
+        // Referme le formulaire de modification :
         toggle();
 
+        // Récupère tous les posts de la BDD:
         fetchData();
     };
 
-    function msgErrorDisplay(id, modif) {
-        document.getElementById(`span_${id}`).innerText = modif;
-        document.getElementById(`span_${id}`).classList.add("my_red");
-    }
-
-    function msgErrorRemove(id) {
-        document.getElementById(`span_${id}`).innerText = "";
-        document.getElementById(`span_${id}`).classList.remove("my_red");
-
-    }
-
-
+    /**
+     * 
+     * @param {number} postId
+     * @param {number} item : vôte effectué sur le post :
+     */
     const postEvaluate = async (postId, item) => {
         let like = [];
         if (item === 1)
@@ -171,8 +173,9 @@ const Posts = ({ data, fetchData, response }) => {
             document.getElementById("like0_" + res.data.post_id).textContent = res.data.like0;
         }).catch(err => {
             console.log(err.response.statusText);
-            document.getElementById(`error_${postId}`).textContent = "Vous n'êtes pas connecté !";
-            document.getElementById(`error_${postId}`).classList.add("my_red");
+            msgErrorDisplay(`error_${postId}`, "Vous n'êtes pas connecté !");
+            setTimeout(() => msgErrorRemove(`error_${postId}`), 10000);
+
         })
     };
 
@@ -234,7 +237,10 @@ const Posts = ({ data, fetchData, response }) => {
                                             ref={picture}
                                         />
                                         <br />
-                                        <label htmlFor="posts_picture" className='btn-primary'>Nouvelle image</label>
+                                        <label
+                                            htmlFor="posts_picture"
+                                            className='btn-primary disp-inl-block'>Nouvelle image
+                                        </label>
                                         <br /><br />
                                     </div>
                                     {image.filepreview !== null &&
@@ -244,7 +250,7 @@ const Posts = ({ data, fetchData, response }) => {
                                                 alt="UploadImage" />
                                         </div>
                                     }
-                                    <button className='btn-primary' type='submit'>Envoyer</button>
+                                    <button className='btn-primary' type='submit'>Publier</button>
                                 </form>
                             </div>
                         </div>
@@ -254,7 +260,7 @@ const Posts = ({ data, fetchData, response }) => {
                         {(item.post_picture && item.post_picture !== "") ?
                             <img src={item.post_picture} alt="élephant volant" /> :
                             (response !== "") &&
-                            <span id="posts-size-error" className='my_red'>{response}</span>
+                            <span id={`posts-size-error_${item.id}`} className='my_red'>{response}</span>
                         }
                         < span id={`span_${item.id}`} />
 

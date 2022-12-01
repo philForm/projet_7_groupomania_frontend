@@ -21,8 +21,6 @@ const Navbar = () => {
   const [logged, setLogged] = useState(false);
   const [userId, setUserId] = useState(tokenService.idCompare());
   const [data, setData] = useState([]);
-  const [display, setDisplay] = useState(true)
-
 
   /**
    * Connecte un utilisateur :
@@ -30,13 +28,11 @@ const Navbar = () => {
    * @returns {boolean}
    */
   const isLogged = (logged) => {
-    if (tokenService.isLogged()) {
+    if (tokenService.isLogged())
       logged = true;
-      // setDisplay(false)
-    } else {
+    else
       logged = false;
-      // setDisplay(true)
-    }
+
     return logged;
   };
 
@@ -58,7 +54,7 @@ const Navbar = () => {
         <img src={logo} alt="logo" className="logo App-logo" />
       </div>
       <div className="nav">
-        {!isLogged(logged) &&
+        {!isLogged(logged) ? (
           <ul className="nav nav_mob">
             <li className="">
               <Link className="" aria-current="page" to="/">Accueil</Link>
@@ -67,8 +63,7 @@ const Navbar = () => {
               <Link className="nav-link" ref={signup} to="/form">Inscription</Link>
             </li>
           </ul>
-        }
-        {isLogged(logged) &&
+        ) : (
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
               <Link to={"/form/profil"}>
@@ -83,7 +78,7 @@ const Navbar = () => {
             </div>
             <div className="popup">Déconnexion</div>
           </div>
-        }
+        )}
       </div>
     </div >
   )
