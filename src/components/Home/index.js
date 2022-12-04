@@ -13,9 +13,10 @@ function Home() {
 
   const [data, setData] = useState([]);
 
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState([]);
 
   const userId = tokenService.idCompare();
+
 
   /**
    * Récupère dans la BDD les infos de l'utilisateur :
@@ -52,8 +53,6 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // console.log(response);
 
   return (
     <div className="App">

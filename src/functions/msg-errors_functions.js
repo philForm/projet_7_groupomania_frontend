@@ -14,9 +14,10 @@ function msgErrorDisplay(id, modif) {
  * @param {String} id 
  */
 function msgErrorRemove(id) {
-    document.getElementById(id).innerText = "";
-    document.getElementById(id).classList.remove("my_red");
-
-}
+    if (document.getElementById(id)) {
+        document.getElementById(id).innerText = "";
+        document.getElementById(id).classList.remove("my_red");
+    };
+};
 
 export { msgErrorDisplay, msgErrorRemove };

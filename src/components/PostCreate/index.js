@@ -76,10 +76,12 @@ const PostCreate = (props) => {
             }
         )
             .then((res) => {
+                console.log(res)
                 if (res.status === 200 || res.status === 201) {
                     // Si l'image est trop volumineuse :
                     if (res.data.picture !== undefined) {
-                        props.responseFunct(res.data.picture);
+                        props.responseFunct([res.data]);
+                        console.log(res.data);
                     };
                 };
             })

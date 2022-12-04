@@ -12,6 +12,9 @@ import "./posts.css";
  */
 const Posts = ({ data, fetchData, response }) => {
 
+    if (response[0] !== undefined) {
+        setTimeout(() => msgErrorRemove(`posts-size-error_${response[0].postId}`), 10000);
+    };
 
     const [displayId, setDisplayId] = useState(null);
 
@@ -179,6 +182,7 @@ const Posts = ({ data, fetchData, response }) => {
         })
     };
 
+
     return (
         <Fragment>
             {data.map(item => (
@@ -259,8 +263,14 @@ const Posts = ({ data, fetchData, response }) => {
                     <div className='posts__img'>
                         {(item.post_picture && item.post_picture !== "") ?
                             <img src={item.post_picture} alt="élephant volant" /> :
-                            (response !== "") &&
-                            <span id={`posts-size-error_${item.id}`} className='my_red'>{response}</span>
+                            (
+                                response[0] !== undefined &&
+                                response[0].picture !== "" &&
+                                response[0].postId === item.id
+                            ) &&
+                            <span id={`posts-size-error_${item.id}`} className='my_red'>
+                                {response[0].picture}
+                            </span>
                         }
                         < span id={`span_${item.id}`} />
 
