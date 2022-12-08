@@ -1,31 +1,35 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+
+import Button from '../../Bouton.js';
+
 import { requiredForm } from '../../functions/users_functions.js';
 
 const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+
+let validInput = {
+    bool: true,
+    text: "Champ requis !"
+};
+
+let verifEmail = {
+    bool: false,
+    text: "L'email est invalide"
+};
+
+let verifPassword = {
+    bool: false,
+    text: {
+        valid: "Veuillez retaper le mot de passe !",
+        validConfirm: "Les mots de passe ne correspondent pas !"
+    }
+};
 
 /**
  * Enregistre un utilisateur :
  * @param {*} props 
  */
 const Signup = (props) => {
-
-    const [validInput, setValidInput] = useState({
-        bool: true,
-        text: "Champ requis !"
-    })
-    const [verifEmail, setVerifEmail] = useState({
-        bool: false,
-        text: "L'email est invalide"
-    });
-    const [verifPassword, setVerifPassword] = useState({
-        bool: false,
-        text: {
-            valid: "Veuillez retaper le mot de passe !",
-            validConfirm: "Les mots de passe ne correspondent pas !"
-        }
-    });
-
 
     const firstName = useRef();
     const firstNameControl = useRef();
@@ -192,7 +196,7 @@ const Signup = (props) => {
                         {/* {verifPassword.text.validConfirm} */}
                     </ span>
                 </div>
-                <button className='btn-primary' type="submit">Inscription</button>
+                <Button type="submit">Inscription</Button>
             </form>
         </div>
     );

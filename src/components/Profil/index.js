@@ -6,6 +6,7 @@ import "../Home/home.css";
 import "./profil.css";
 import { tokenService } from '../../services/storage_service';
 import { msgErrorDisplay, msgErrorRemove } from '../../functions/msg-errors_functions';
+import Button from '../../Bouton';
 
 const Profil = () => {
 
@@ -135,14 +136,10 @@ const Profil = () => {
                         }
 
                     </div>
-                    <button
-                        className='btn-primary'
-                        type="submit">Ajouter ou changer votre avatar
-                    </button>
-                    <button
-                        onClick={redirection}
-                        className='btn-primary'>Annuler
-                    </button>
+                    <Button type="submit">Ajouter ou changer votre avatar</Button>
+
+                    <Button click={redirection}>Annuler</Button>
+
                     < span id={`profil-error`} />
                 </form>
             </div>

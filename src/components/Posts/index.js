@@ -1,11 +1,17 @@
 import React, { useState, Fragment, useRef } from 'react';
 import axios from 'axios';
-import { dateFormat } from '../../functions/utils';
 import { tokenService } from '../../services/storage_service';
+
+import FormPostUpdate from '../FormPostUpdate';
+import PostProfil from '../PostProfil';
+import PostLike from '../PostLike';
+import Button from '../../Bouton';
 
 import { msgErrorDisplay, msgErrorRemove } from '../../functions/msg-errors_functions';
 
 import "./posts.css";
+import PostMessageImg from '../PostMessageImg';
+
 
 /**
  * Publication et modification de posts :
@@ -17,8 +23,6 @@ const Posts = ({ data, fetchData, response }) => {
     };
 
     const [displayId, setDisplayId] = useState(null);
-
-    const [userIdLocal, setUserIdLocal] = useState(tokenService.idCompare());
 
     const [image, setImage] = useState({
         file: [],
@@ -44,10 +48,13 @@ const Posts = ({ data, fetchData, response }) => {
         }
     };
 
+    // Récupération de l'Id de l'utilisateur :
+    const userIdLocal = tokenService.idCompare();
+
     // Récupération du token dans le localStorage :
     const token = tokenService.recupToken();
 
-    // Récupération du rôle
+    // Récupération du rôle :
     const role = tokenService.recupRole();
 
     const form = useRef()
@@ -182,117 +189,48 @@ const Posts = ({ data, fetchData, response }) => {
         })
     };
 
-
     return (
         <Fragment>
             {data.map(item => (
-                <div key={item.id} className='posts__container' id={`${item.id}`} data-id={`${item.id}`} ref={contain}>
-                    <div className='posts__profil'>
-                        <div>
-                            <div className='posts__avatar'>
-                                <img src={item.user_picture} alt="avatar" />
-                            </div>
+                <div key={item.id}
+                    className='posts__container'
+                    id={`${item.id}`}
+                    data-id={`${item.id}`}
+                    ref={contain}
+                >
+                    <PostProfil item={item} />
 
-                            <div className='posts__mail'>
-                                {item.email}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Posté le : {dateFormat(item.createdAt)}
-                            </div>
-                        </div>
-                    </div>
                     {((userIdLocal === item.user_id) || role === 1) &&
                         <div className='posts__modif'>
-                            <button
+                            <Button
                                 id={`btn-${item.id}`}
-                                onClick={() => toggle(item.id)}
-                                className="btn-primary"
-                            >Modifier</button>
-                            <button
-                                className="btn-primary"
-                                onClick={() => postDelete(item.id)}
-                            >Supprimer</button>
+                                click={() => toggle(item.id)}
+                            >Modifier
+                            </Button>
+
+                            <Button
+                                click={() => postDelete(item.id)}
+                            >Supprimer
+                            </Button>
+
                         </div>
                     }
                     {
                         (displayId === item.id) &&
-                        <div>
-                            <div className='posts__container'>
-                                <form onSubmit={(e) => postUpdate(item.id, e)} ref={form}>
-                                    <div className='posts__form'>
-                                        <label htmlFor="post-update">Nouveau message</label><br />
-                                        <textarea
-                                            type="textarea"
-                                            id='post-update'
-                                            name='post'
-                                            ref={post}
-                                            defaultValue={item.post} >
-                                        </textarea> <br />
-                                    </div>
-                                    <div className='posts__form'>
-                                        <input
-                                            type="file"
-                                            id='posts_picture'
-                                            name='picture'
-                                            accept='image/jpg, image/jpeg, image/png image/gif'
-                                            onChange={(e) => handleChangeImage(e)}
-                                            ref={picture}
-                                        />
-                                        <br />
-                                        <label
-                                            htmlFor="posts_picture"
-                                            className='btn-primary disp-inl-block'>Nouvelle image
-                                        </label>
-                                        <br /><br />
-                                    </div>
-                                    {image.filepreview !== null &&
-                                        <div className='posts_preview'>
-                                            <img
-                                                src={image.filepreview}
-                                                alt="UploadImage" />
-                                        </div>
-                                    }
-                                    <button className='btn-primary' type='submit'>Publier</button>
-                                </form>
-                            </div>
-                        </div>
+                        <FormPostUpdate
+                            postUpdate={postUpdate}
+                            handleChangeImage={handleChangeImage}
+                            item={item}
+                            form={form}
+                            post={post}
+                            picture={picture}
+                            image={image}
+                        />
                     }
 
-                    <div className='posts__img'>
-                        {(item.post_picture && item.post_picture !== "") ?
-                            <img src={item.post_picture} alt="élephant volant" /> :
-                            (
-                                response[0] !== undefined &&
-                                response[0].picture !== "" &&
-                                response[0].postId === item.id
-                            ) &&
-                            <span id={`posts-size-error_${item.id}`} className='my_red'>
-                                {response[0].picture}
-                            </span>
-                        }
-                        < span id={`span_${item.id}`} />
+                    <PostMessageImg response={response} item={item} />
 
-                    </div>
-                    <div className='posts__post'>
-                        {item.post}
-                    </div>
-
-                    <div className='posts__eval'>
-                        <div className='posts__icon'>
-                            <i onClick={() => postEvaluate(item.id, 1)} className="fa-solid fa-thumbs-up fa-lg"></i>
-                            <span id={"like1_" + item.id}>{item.like1}</span>
-                        </div>
-                        <div className='posts__icon'>
-                            <i onClick={() => postEvaluate(item.id, 0)} className="fa-solid fa-thumbs-down fa-lg"></i>
-                            <span id={"like0_" + item.id}>{item.like0}</span>
-                        </div>
-                    </div>
-                    <span
-                        id={`error_${item.id}`}
-                        type="invalid"
-                    />
+                    <PostLike postEval={postEvaluate} item={item} />
                 </div>
             )
             )}

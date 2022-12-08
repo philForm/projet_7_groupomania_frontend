@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { tokenService } from '../../services/storage_service';
+import Button from '../../Bouton';
 
 /**
  * Création de Posts
@@ -123,7 +124,7 @@ const PostCreate = (props) => {
                             alt="UploadImage" />
                     </div>
                 }
-                <button className='btn-primary' type='submit'>Publier</button>
+                <Button type='submit'>Publier</Button>
             </form>
         </div>
     );

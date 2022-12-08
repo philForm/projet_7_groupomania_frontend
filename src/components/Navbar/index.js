@@ -7,6 +7,7 @@ import logo from "../../assets/logo_groupomania_navbar.png";
 import shut from "../../assets/button-icon-shut-cliparts.png";
 
 import "./navbar.css";
+import Button from "../../Bouton";
 
 /**
  * Barre de navigation :
@@ -20,7 +21,8 @@ const Navbar = () => {
 
   const [logged, setLogged] = useState(false);
   const [userId, setUserId] = useState(tokenService.idCompare());
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+
 
   /**
    * Connecte un utilisateur :
@@ -48,6 +50,7 @@ const Navbar = () => {
     navigate("/form");
   };
 
+
   return (
     <div className="fixe nav nav__pad nav__height">
       <div>
@@ -67,14 +70,16 @@ const Navbar = () => {
           <div className="connect" ref={deconnect}>
             <div className='nav__avatar'>
               <Link to={"/form/profil"}>
-                <img id="user_avatar" src={data.user_picture} alt="avatar" />
+                <img id="user_avatar"
+                  // src={data.user_picture}
+                  alt="avatar" />
               </Link>
             </div>
             <div className="popup">Changez l'image de votre avatar</div>
             <div className="nav__deconnect">
-              <button onClick={logout} className="nav__deconnect">
+              <Button click={logout} class={"nav__deconnect"}>
                 <img src={shut} alt="icone de déconnexion" />
-              </button>
+              </Button>
             </div>
             <div className="popup">Déconnexion</div>
           </div>

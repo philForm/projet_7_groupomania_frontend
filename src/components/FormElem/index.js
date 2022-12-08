@@ -3,6 +3,7 @@ import Signup from "../Signup";
 import Login from "../Login";
 
 import './formElem.css';
+import Button from "../../Bouton";
 
 /**
  * Formulaires d'enregistrement et de connexion :
@@ -23,6 +24,7 @@ const FormElem = () => {
         if (login.current.className === "disp_none") {
             login.current.className = "wid btn-primary";
             signup.current.className = "disp_none";
+            console.log(signup);
             setDisplaySignup(false);
             setDisplayLogin(true);
 
@@ -37,13 +39,18 @@ const FormElem = () => {
     return (
         <div className="App" >
             <div className="form_1" >
-                <button className="btn-primary disp_none" onClick={displayForm} id="signup" ref={signup}>
-                    Aller au formulaire de connexion
-                </button>
-
-                <button className="btn-primary wid" onClick={displayForm} id="login" ref={login}>
-                    Aller au formulaire d'inscription
-                </button>
+                <Button
+                    class="disp_none"
+                    click={displayForm}
+                    id="signup"
+                    innerRef={signup}
+                >Aller au formulaire de connexion</Button>
+                <Button
+                    class="wid"
+                    click={displayForm}
+                    id="login"
+                    innerRef={login}
+                >Aller au formulaire d'inscription</Button>
                 {displaySignup &&
                     <Signup dispForm={displayForm} />
                 }

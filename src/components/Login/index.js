@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '../../Bouton';
+
 import { tokenService } from '../../services/storage_service';
 
 import "./login.css";
@@ -43,7 +45,6 @@ const Login = () => {
                 errorMsg.current.classList = "my_red";
             });
 
-
     };
 
     return (
@@ -73,7 +74,7 @@ const Login = () => {
                 </div>
                 <div className='login_error'>
                     <span type="invalid" ref={errorMsg} />
-                    <button className='btn-primary' type="submit">Connexion</button>
+                    <Button type="submit">Connexion</Button>
                 </div>
             </form>
         </div>
